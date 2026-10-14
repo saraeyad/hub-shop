@@ -5,7 +5,7 @@
 **Live demo:** [https://react-project-jade-gamma-92.vercel.app](https://react-project-jade-gamma-92.vercel.app/)
 
 <p align="center">
-  <img src="docs/demo/homepage.png" alt="ShopHub homepage" width="900" />
+  <img src="docs/demo/E-commerce4 (1).webp alt="ShopHub homepage" width="900" />
 </p>
 
 ### فيديو توضيحي للمشروع وهو شغال
@@ -20,7 +20,8 @@
 
 | الصفحة الرئيسية | المنتجات | تفاصيل المنتج |
 | --- | --- | --- |
-| ![Home](docs/demo/homepage.png) | ![Products](docs/demo/products.png) | ![Details](docs/demo/product-details.png) |
+|  ![Products](docs/demo/E-commerce5.webp | [checkout](docs/demo/E-commerce3.webp) 
+) | ![shopping](docs/demo/E-commerce2.webp) |
 
 ---
 
