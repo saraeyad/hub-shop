@@ -1,75 +1,108 @@
-# React + TypeScript + Vite
+# ShopHub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+متجر إلكتروني حديث مبني بـ React + TypeScript، يوفّر تجربة تسوق كاملة: تصفح المنتجات، الخصومات، المفضلة، السلة، وإتمام الطلب.
 
-Currently, two official plugins are available:
+<p align="center">
+  <img src="docs/demo/homepage.png" alt="ShopHub homepage" width="900" />
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### فيديو توضيحي للمشروع وهو شغال
 
-## React Compiler
+[▶ مشاهدة فيديو الديمو (ShopHub وهو شغال)](./docs/demo/shophub-demo.mp4)
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+<p align="center">
+  <a href="./docs/demo/shophub-demo.mp4">
+    <img src="docs/demo/products.png" alt="ShopHub demo video thumbnail" width="900" />
+  </a>
+</p>
 
-Note: This will impact Vite dev & build performances.
+| الصفحة الرئيسية | المنتجات | تفاصيل المنتج |
+| --- | --- | --- |
+| ![Home](docs/demo/homepage.png) | ![Products](docs/demo/products.png) | ![Details](docs/demo/product-details.png) |
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## المشكلة التي يحلها والفئة المستهدفة
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### المشكلة
+كثير من تجارب التسوق الإلكترونية تكون إما بطيئة، أو غير منظمة، أو تفقد بيانات السلة عند تحديث الصفحة. ShopHub يعالج ذلك عبر واجهة سريعة وواضحة، مع حفظ السلة والمفضلة محليًا، وتنظيم المنتجات بالفئات والخصومات والعروض المحدودة.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### الفئة المستهدفة
+- **المتعلمون والمطورون** الذين يريدون مشروع E-commerce واقعي بهندسة نظيفة (Repository / Adapters / Modules).
+- **أصحاب المتاجر الصغيرة / الناشئة** كأساس واجهة أمامية لمتجر إلكتروني.
+- **المستخدم النهائي** الذي يحتاج تصفح سريع، مقارنة أسعار وخصومات، وإضافة للسلة ثم checkout بدون تعقيد.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## أهم الفيتشرز التي طورتها
+
+- **واجهة رئيسية غنية**: Hero banner، New Arrivals، Best Sellers، وFlash Sale مع عدّاد تنازلي.
+- **كتالوج منتجات**: قائمة منسّقة، تصفح حسب الفئة، صفحات ترقيم (pagination)، وصفحة تفاصيل مع التقييمات والمراجعات.
+- **سلة تسوق ذكية**: إضافة/حذف/تحديث الكمية، حساب الخصم والضريبة والشحن، مع حفظ الحالة في `localStorage`.
+- **المفضلة (Favorites)**: حفظ المنتجات المفضلة محليًا وعرض عددها في الهيدر.
+- **Checkout**: نموذج بيانات الشحن وإنشاء طلب مع تفريغ السلة بعد الإتمام.
+- **تصميم متجاوب وعلامة تجارية موحّدة**: ثيم ShopHub (بني/ذهبي) مع Mantine وFramer Motion.
+
+---
+
+## التحديات التي حليتها
+
+1. **فصل طبقة الـ API عن الـ UI**  
+   بنيت المشروع بنمط Modules + Repository + Adapters، بحيث تحويل بيانات DummyJSON (`title` → `name`, حساب `discountedPrice`, إلخ) يحدث في الـ adapter دون تلويث المكوّنات.
+
+2. **مزامنة حالة السلة والمفضلة مع التخزين المحلي**  
+   استخدمت `localStorage` مع React Query / Context حتى تبقى السلة والمفضلة بعد إعادة تحميل الصفحة، مع تحديث فوري لعدادات الهيدر.
+
+3. **تجربة تصفح سلسة مع بيانات خارجية**  
+   التعامل مع تحميل المنتجات، الفلترة حسب الفئة، والـ pagination، وإدارة حالات التحميل/الأخطاء عبر TanStack Query.
+
+4. **Routing حديث وآمن نوعيًا**  
+   بناء المسارات بـ TanStack Router مع صفحات Home / Products / Product Details / Cart / Checkout، مع دعم search params للفئات.
+
+5. **واجهة متسقة وجذابة**  
+   توحيد الثيم والألوان والحركة عبر Mantine + Framer Motion، بدل واجهة مبعثرة بصريًا.
+
+---
+
+## التقنيات المستخدمة
+
+| الطبقة | الأدوات |
+| --- | --- |
+| UI | React 19, TypeScript, Mantine, Framer Motion, Tabler Icons |
+| Data | TanStack Query, DummyJSON API |
+| Routing | TanStack Router |
+| State محلي | localStorage (Cart / Favorites / Checkout) |
+| Build | Vite, pnpm, Vercel |
+
+---
+
+## التشغيل المحلي
+
+```bash
+pnpm install
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+ثم افتح [http://localhost:5173](http://localhost:5173)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+pnpm build    # بناء للإنتاج
+pnpm preview  # معاينة البناء
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## هيكل المشروع (مختصر)
+
+```text
+src/
+  components/     # Layout, Home, Hero, Sliders
+  modules/
+    products/     # كيانات، hooks، repository، adapters، views
+    categories/
+    cart/
+    favorites/
+    checkout/
+  routes/         # TanStack Router pages
+docs/demo/        # صور وفيديو توضيحي للمشروع
 ```
