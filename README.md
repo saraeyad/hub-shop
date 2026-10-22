@@ -5,22 +5,22 @@
 **Live demo:** [https://react-project-jade-gamma-92.vercel.app](https://react-project-jade-gamma-92.vercel.app/)
 
 <p align="center">
-  <img src="docs/demo/Home.webp" alt="ShopHub homepage" width="900" />
+  <img src="docs/demo/editorial-home.webp" alt="ShopHub homepage" width="900" />
 </p>
 
 ### فيديو توضيحي للمشروع وهو شغال
 
-[▶ مشاهدة فيديو الديمو (ShopHub وهو شغال)](./docs/demo/shophub-demo.mp4)
+[▶ مشاهدة فيديو الديمو (ShopHub وهو شغال)](./docs/demo/editorial-demo.mp4)
 
 <p align="center">
-  <a href="./docs/demo/shophub-demo.mp4">
-    <img src="docs/demo/Home.webp" alt="ShopHub demo video thumbnail" width="900" />
+  <a href="./docs/demo/editorial-demo.mp4">
+    <img src="docs/demo/editorial-home.webp" alt="ShopHub demo video thumbnail" width="900" />
   </a>
 </p>
 
-| الصفحة الرئيسية | Flash Sale | السلة | Checkout |
+| الصفحة الرئيسية | المنتجات | السلة | Checkout |
 | --- | --- | --- | --- |
-| ![Home](docs/demo/Home.webp) | ![Flash Sale](docs/demo/E-commerce5.webp) | ![Cart](docs/demo/E-commerce2.webp) | ![Checkout](docs/demo/E-commerce3.webp) |
+| ![Home](docs/demo/editorial-home.webp) | ![Products](docs/demo/editorial-products.webp) | ![Cart](docs/demo/editorial-cart.webp) | ![Checkout](docs/demo/editorial-checkout.webp) |
 
 ---
 
