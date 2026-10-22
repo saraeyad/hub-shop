@@ -1,5 +1,5 @@
 import { ActionIcon, Badge } from "@mantine/core";
-import { IconShoppingCart } from "@tabler/icons-react";
+import { IconShoppingBag } from "@tabler/icons-react";
 import { useCart } from "../hooks/useCart";
 import { Link } from "@tanstack/react-router";
 
@@ -17,7 +17,7 @@ export const CartIcon = ({ color = "#111111" }: { color?: string }) => {
       radius="xl"
       style={{ position: "relative", overflow: "visible", color }}
     >
-      <IconShoppingCart size={22} stroke={1.3} color={color} />
+      <IconShoppingBag size={22} stroke={1.3} color={color} />
       {itemCount > 0 && (
         <Badge
           size="xs"
