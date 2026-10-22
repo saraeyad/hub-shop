@@ -35,9 +35,6 @@ export const Header = () => {
 
   return (
     <AppShell.Header style={{ background: "#ffffff", borderBottom: "1px solid #ececec" }}>
-      <Box ta="center" py={6} style={{ background: "#f7f5f2", fontSize: 12, letterSpacing: "0.04em" }}>
-        Complimentary delivery over $50
-      </Box>
       <Group justify="space-between" align="center" px={{ base: "md", md: 36 }} h={64} wrap="nowrap" style={{ position: "relative" }}>
         <Box component="form" onSubmit={handleSearch} w={180} visibleFrom="sm">
           <TextInput
