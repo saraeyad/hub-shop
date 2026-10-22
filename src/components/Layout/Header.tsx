@@ -5,8 +5,12 @@ import { FavoritesIcon } from "../../modules/favorites/views/FavoritesIcon";
 import { IconSearch } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 
-const NAV = [
-  { label: "New arrivals", to: "/products" as const },
+type NavItem =
+  | { label: string; to: "/products" }
+  | { label: string; category: string };
+
+const NAV: NavItem[] = [
+  { label: "New arrivals", to: "/products" },
   { label: "Beauty", category: "beauty" },
   { label: "Fragrances", category: "fragrances" },
   { label: "Dresses", category: "womens-dresses" },

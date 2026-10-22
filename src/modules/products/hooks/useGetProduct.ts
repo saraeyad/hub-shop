@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Product } from "../entities/Product";
 import { useProducts } from "..";
 
 export const getProductQueryKey = (id: number | string) => ["product", id] as const;
