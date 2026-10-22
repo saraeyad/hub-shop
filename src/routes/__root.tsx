@@ -1,9 +1,7 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { MantineProvider, createTheme, type MantineColorsTuple } from '@mantine/core'
 import { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import '@mantine/core/styles.css'
 import '@mantine/carousel/styles.css'
 import '../index.css'
@@ -62,7 +60,6 @@ export const Route = createRootRoute({
   component: () => (
     <MantineProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools />
         <ProductsProvider>
           <CategoriesProvider>
             <CartProvider>
@@ -77,7 +74,6 @@ export const Route = createRootRoute({
             </CartProvider>
           </CategoriesProvider>
         </ProductsProvider>
-        <TanStackRouterDevtools />
       </QueryClientProvider>
     </MantineProvider>
   ),
