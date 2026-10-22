@@ -35,6 +35,22 @@ body {
   color: var(--ink);
 }
 
+.header-nav {
+  scrollbar-width: none;
+}
+
+.header-nav::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 520px) {
+  .header-search {
+    visibility: hidden;
+    width: 8px !important;
+    min-width: 0 !important;
+  }
+}
+
 #root {
   width: 100%;
   margin: 0;

@@ -3,7 +3,7 @@ import { IconShoppingCart } from "@tabler/icons-react";
 import { useCart } from "../hooks/useCart";
 import { Link } from "@tanstack/react-router";
 
-export const CartIcon = () => {
+export const CartIcon = ({ color = "#111111" }: { color?: string }) => {
   const { cart } = useCart();
 
   const itemCount = cart.items.reduce((sum, item) => sum + item.quantity, 0);
@@ -12,12 +12,12 @@ export const CartIcon = () => {
     <ActionIcon
       component={Link}
       to="/cart"
-      variant="subtle"
+      variant="transparent"
       size="lg"
       radius="xl"
-      style={{ position: "relative", overflow: "visible" }}
+      style={{ position: "relative", overflow: "visible", color }}
     >
-      <IconShoppingCart size={20} />
+      <IconShoppingCart size={22} stroke={1.3} color={color} />
       {itemCount > 0 && (
         <Badge
           size="xs"

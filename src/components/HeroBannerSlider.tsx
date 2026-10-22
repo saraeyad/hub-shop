@@ -58,7 +58,8 @@ export const HeroBannerSlider = ({ products }: HeroBannerSliderProps) => {
         style={{
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(180deg, rgba(0,0,0,0.08) 30%, rgba(0,0,0,0.42) 100%)",
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.38) 0%, rgba(0,0,0,0.08) 22%, rgba(0,0,0,0.05) 46%, rgba(0,0,0,0.42) 100%)",
         }}
       />
       <Button
