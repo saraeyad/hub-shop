@@ -29,11 +29,8 @@ export const useProducts = () => {
   return context;
 };
 
-export const createProductsModule = () => {
-  const value = restProducts();
-  return {
-    Provider: ({ children }: PropsWithChildren) => (
-      <ProductsProvider value={value}>{children}</ProductsProvider>
-    ),
-  };
+const productsRepository = restProducts();
+
+export const ShopProductsProvider = ({ children }: PropsWithChildren) => {
+  return <ProductsProvider value={productsRepository}>{children}</ProductsProvider>;
 };

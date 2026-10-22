@@ -16,16 +16,8 @@ type CartProviderProps = {
   children: ReactNode;
 };
 
-export const createCartModule = () => {
-  const repository = localStorageCart();
+const cartRepository = localStorageCart();
 
-  const Provider = ({ children }: CartProviderProps) => {
-    return (
-      <CartContext.Provider value={repository}>
-        {children}
-      </CartContext.Provider>
-    );
-  };
-
-  return { Provider, useCart };
+export const ShopCartProvider = ({ children }: CartProviderProps) => {
+  return <CartContext.Provider value={cartRepository}>{children}</CartContext.Provider>;
 };

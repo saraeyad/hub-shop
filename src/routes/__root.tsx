@@ -5,8 +5,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import '@mantine/core/styles.css'
 import '@mantine/carousel/styles.css'
 import '../index.css'
-import { createProductsModule } from '../modules/products/index'
-import { createCartModule } from '../modules/cart/index'
+import { ShopProductsProvider } from '../modules/products/index'
+import { ShopCartProvider } from '../modules/cart/index'
 import { FavoritesProvider } from '../modules/favorites/index'
 import { CheckoutProvider } from '../modules/checkout/index'
 import { Layout } from '../components/Layout'
@@ -47,9 +47,6 @@ const theme = createTheme({
   },
 })
 
-const { Provider: ProductsProvider } = createProductsModule()
-const { Provider: CartProvider } = createCartModule()
-
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false, retry: false } },
 })
@@ -58,8 +55,8 @@ export const Route = createRootRoute({
   component: () => (
     <MantineProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <ProductsProvider>
-          <CartProvider>
+        <ShopProductsProvider>
+          <ShopCartProvider>
             <FavoritesProvider>
               <CheckoutProvider>
                 <Layout>
@@ -68,8 +65,8 @@ export const Route = createRootRoute({
                 <Toaster />
               </CheckoutProvider>
             </FavoritesProvider>
-          </CartProvider>
-        </ProductsProvider>
+          </ShopCartProvider>
+        </ShopProductsProvider>
       </QueryClientProvider>
     </MantineProvider>
   ),
