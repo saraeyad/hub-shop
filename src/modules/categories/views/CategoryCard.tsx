@@ -1,4 +1,5 @@
 import { Card, Text, Group, Box, useMantineTheme } from "@mantine/core";
+import { useNavigate } from "@tanstack/react-router";
 import {
   IconTag,
   IconBrush,
@@ -21,8 +22,8 @@ type CategoryCardProps = {
 
 export const CategoryCard = ({ category }: CategoryCardProps) => {
   const theme = useMantineTheme();
-  // Unified color for all category cards to keep the UI consistent
-  const unifiedColor = theme.colors.brown[6];
+  const navigate = useNavigate();
+  const unifiedColor = theme.colors.brand[6];
 
   const getIcon = (slug: string) => {
     const props: { size: number; stroke: number; color: string } = {
@@ -77,17 +78,23 @@ export const CategoryCard = ({ category }: CategoryCardProps) => {
   return (
     <Card
       padding="sm"
-      radius="md"
+      radius="lg"
       withBorder
+      onClick={() =>
+        navigate({
+          to: "/products",
+          search: { category: category.slug },
+        })
+      }
       style={{
         cursor: "pointer",
-        transition: "all 0.3s ease",
-        borderColor: `${unifiedColor}40`,
+        borderColor: "#e5e5e5",
         height: "100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        background: "#ffffff",
       }}
       styles={{
         root: {

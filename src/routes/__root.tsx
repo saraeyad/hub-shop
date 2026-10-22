@@ -1,9 +1,7 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { MantineProvider, createTheme, type MantineColorsTuple } from '@mantine/core'
 import { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import '@mantine/core/styles.css'
 import '@mantine/carousel/styles.css'
 import '../index.css'
@@ -14,32 +12,38 @@ import { FavoritesProvider } from '../modules/favorites/index'
 import { CheckoutProvider } from '../modules/checkout/index'
 import { Layout } from '../components/Layout'
 
-const brown: MantineColorsTuple = ['#faf8f6', '#f5f1ec', '#ede5db', '#e0d4c4', '#c9b8a3', '#a68b6f', '#8b6f47', '#6d5638', '#4d3d28', '#2e2418']
-const gold: MantineColorsTuple = ['#fffbf0', '#fff8e1', '#ffecb3', '#ffe082', '#ffd54f', '#ffc107', '#ffb300', '#ffa000', '#ff8f00', '#ff6f00']
-const gray: MantineColorsTuple = ['#fafafa', '#f5f5f5', '#eeeeee', '#e0e0e0', '#bdbdbd', '#9e9e9e', '#757575', '#616161', '#424242', '#212121']
+const brand: MantineColorsTuple = ['#fafafa', '#f5f5f5', '#e5e5e5', '#d4d4d4', '#a3a3a3', '#525252', '#171717', '#111111', '#0a0a0a', '#000000']
+const gold: MantineColorsTuple = ['#fafafa', '#f5f5f5', '#e5e5e5', '#d4d4d4', '#a3a3a3', '#525252', '#171717', '#111111', '#0a0a0a', '#000000']
+const gray: MantineColorsTuple = ['#fafafa', '#f5f5f5', '#eeeeee', '#e5e5e5', '#d4d4d4', '#a3a3a3', '#737373', '#525252', '#262626', '#171717']
 
 const theme = createTheme({
-  primaryColor: 'brown',
+  primaryColor: 'brand',
   primaryShade: 6,
-  colors: { brown, gold, gray },
-  fontFamily: '"Playfair Display", "Cormorant Garamond", "Georgia", serif',
+  colors: { brand, gold, gray },
+  fontFamily: '"Jost", "Segoe UI", Helvetica, Arial, sans-serif',
   headings: {
-    fontFamily: '"Playfair Display", "Cormorant Garamond", "Georgia", serif',
-    fontWeight: '600',
+    fontFamily: '"Playfair Display", Georgia, serif',
+    fontWeight: '500',
   },
-  defaultRadius: 'sm',
+  defaultRadius: 0,
   components: {
+    Title: {
+      styles: { root: { color: '#111111', fontWeight: 500 } },
+    },
     Button: {
-      defaultProps: { radius: 'sm', color: 'brown' },
-      styles: { root: { fontWeight: 500, letterSpacing: '0.025em', textTransform: 'uppercase', fontSize: '0.875rem' } },
+      defaultProps: { radius: 0, color: 'brand' },
+      styles: { root: { fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', fontSize: '0.72rem' } },
     },
     Card: {
-      defaultProps: { radius: 'sm', shadow: 'sm', withBorder: true },
-      styles: { root: { borderColor: '#e0d4c4', backgroundColor: '#ffffff' } },
+      defaultProps: { radius: 0, shadow: 'none', withBorder: false },
+      styles: { root: { borderColor: 'transparent', backgroundColor: '#ffffff' } },
     },
     Input: {
-      defaultProps: { radius: 'sm' },
-      styles: { input: { borderColor: '#e0d4c4', backgroundColor: '#fafafa', '&:focus': { borderColor: '#8b6f47' } } },
+      defaultProps: { radius: 0 },
+      styles: { input: { borderColor: '#e5e5e5', backgroundColor: '#ffffff', '&:focus': { borderColor: '#111111' } } },
+    },
+    TextInput: {
+      defaultProps: { radius: 0 },
     },
   },
 })
@@ -56,7 +60,6 @@ export const Route = createRootRoute({
   component: () => (
     <MantineProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools />
         <ProductsProvider>
           <CategoriesProvider>
             <CartProvider>
@@ -71,7 +74,6 @@ export const Route = createRootRoute({
             </CartProvider>
           </CategoriesProvider>
         </ProductsProvider>
-        <TanStackRouterDevtools />
       </QueryClientProvider>
     </MantineProvider>
   ),

@@ -4,7 +4,7 @@ import { useFavorites } from "../hooks/useFavorites";
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 
-export const FavoritesIcon = () => {
+export const FavoritesIcon = ({ color = "#111111" }: { color?: string }) => {
   const { getAll, removeItem } = useFavorites();
   const [opened, setOpened] = useState(false);
   const favorites = getAll();
@@ -28,13 +28,13 @@ export const FavoritesIcon = () => {
     >
       <Popover.Target>
         <ActionIcon
-          variant="subtle"
+          variant="transparent"
           size="lg"
           radius="xl"
           onClick={() => setOpened(!opened)}
-          style={{ position: "relative", overflow: "visible" }}
+          style={{ position: "relative", overflow: "visible", color }}
         >
-          <IconHeart size={20} color="#6d5638" />
+          <IconHeart size={22} stroke={1.3} color={color} />
           {count > 0 && (
             <Badge
               size="xs"
@@ -52,7 +52,7 @@ export const FavoritesIcon = () => {
                 justifyContent: "center",
                 fontSize: 10,
                 fontWeight: 700,
-                backgroundColor: "var(--mantine-color-red-6)",
+                backgroundColor: "#d64545",
                 border: "none",
                 zIndex: 10,
               }}

@@ -1,176 +1,177 @@
-import { AppShell, Group, Title, Container, Button, Popover, Box, TextInput, ActionIcon, Image } from "@mantine/core";
+import { AppShell, Group, Text, Box, TextInput } from "@mantine/core";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { CartIcon } from "../../modules/cart/views";
 import { FavoritesIcon } from "../../modules/favorites/views/FavoritesIcon";
-import { useGetAllCategories } from "../../modules/categories/hooks/useGetAllCategories";
-import { IconChevronDown, IconSearch, IconUser } from "@tabler/icons-react";
-import { useState } from "react";
-import { headerAnimations, buttonAnimations } from "../../animations/animations";
+import { IconSearch } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
+
+const NAV = [
+  { label: "New arrivals", to: "/products" as const },
+  { label: "Beauty", category: "beauty" },
+  { label: "Fragrances", category: "fragrances" },
+  { label: "Dresses", category: "womens-dresses" },
+  { label: "Shoes", category: "womens-shoes" },
+  { label: "Bags", category: "womens-bags" },
+  { label: "Jewelry", category: "womens-jewellery" },
+  { label: "Watches", category: "womens-watches" },
+  { label: "Sunglasses", category: "sunglasses" },
+  { label: "Skin care", category: "skin-care" },
+];
+
+function categoryFromSearch(search: unknown): string | undefined {
+  if (search && typeof search === "object" && "category" in search) {
+    const value = (search as { category?: unknown }).category;
+    return typeof value === "string" ? value : undefined;
+  }
+  return undefined;
+}
 
 export const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { categories, isLoading } = useGetAllCategories();
-  const [opened, setOpened] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [scrolled, setScrolled] = useState(false);
+  const onHome = location.pathname === "/";
+  const solid = !onHome || scrolled;
+  const ink = solid ? "#171717" : "#ffffff";
+  const category = categoryFromSearch(location.search);
 
-  const handleCategoryClick = (categorySlug: string) => {
-    navigate({
-      to: "/products",
-      search: { category: categorySlug },
-    });
-    setOpened(false);
-  };
+  useEffect(() => {
+    if (!onHome) return;
+    const update = () => {
+      const hero = window.innerWidth >= 992 ? 640 : 460;
+      setScrolled(window.scrollY > hero - 140);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [onHome]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate({
-        to: "/products",
-      });
-    }
+    if (searchQuery.trim()) navigate({ to: "/products" });
   };
 
+  const itemStyle = (active: boolean) => ({
+    color: ink,
+    fontSize: 11,
+    letterSpacing: "0.16em",
+    textTransform: "uppercase" as const,
+    textDecoration: "none",
+    fontWeight: 500,
+    whiteSpace: "nowrap" as const,
+    border: "none",
+    borderBottom: active ? `1px solid ${ink}` : "1px solid transparent",
+    padding: 0,
+    paddingBottom: 3,
+    fontFamily: "inherit",
+    textShadow: solid ? "none" : "0 1px 8px rgba(0,0,0,0.45)",
+    background: "none",
+    cursor: "pointer",
+  });
+
   return (
-    <motion.div
-      initial={headerAnimations.initial}
-      animate={headerAnimations.animate}
-      transition={headerAnimations.transition}
+    <AppShell.Header
+      style={{
+        height: 128,
+        background: solid ? "rgba(255,255,255,0.96)" : "transparent",
+        borderBottom: solid ? "1px solid #ececec" : "none",
+        transition: "background 0.25s ease, border-color 0.25s ease",
+        backdropFilter: solid ? "blur(8px)" : "none",
+      }}
     >
-      <AppShell.Header 
-        style={{ 
-          borderBottom: "1px solid #e0d4c4",
-          backgroundColor: "#ffffff",
-          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.05)",
-        }}
+      <Group
+        justify="space-between"
+        align="center"
+        px={{ base: 16, md: 28 }}
+        h={62}
+        wrap="nowrap"
+        style={{ position: "relative" }}
       >
-        <Container size="lg" h="100%">
-          <Group justify="space-between" align="center" h="100%" gap="xl">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Link to="/" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center", gap: "8px" }}>
-                <Image src="/logo.svg" alt="ShopHub Logo" h={40} w="auto" fit="contain" />
-                <Title order={2} fw={600} c="brown.7" style={{ letterSpacing: "0.05em", fontFamily: '"Playfair Display", serif' }}>
-                  ShopHub
-                </Title>
-              </Link>
-            </motion.div>
-
-          <Group gap="md" visibleFrom="md" style={{ flex: 1, maxWidth: 600 }}>
-            <motion.div
-              whileHover={buttonAnimations.hover}
-              whileTap={buttonAnimations.tap}
-            >
-              <Button
-                component={Link}
-                to="/"
-                variant={location.pathname === "/" ? "filled" : "subtle"}
-                radius="sm"
-                color="brown"
-                style={{ 
-                  fontWeight: 500,
-                  letterSpacing: "0.05em",
-                  textTransform: "uppercase",
-                  fontSize: "0.75rem",
-                }}
-              >
-                Home
-              </Button>
-            </motion.div>
-            <motion.div
-              whileHover={buttonAnimations.hover}
-              whileTap={buttonAnimations.tap}
-            >
-              <Button
-                component={Link}
-                to="/products"
-                variant={location.pathname === "/products" ? "filled" : "subtle"}
-                radius="sm"
-                color="brown"
-                style={{ 
-                  fontWeight: 500,
-                  letterSpacing: "0.05em",
-                  textTransform: "uppercase",
-                  fontSize: "0.75rem",
-                }}
-              >
-                Products
-              </Button>
-            </motion.div>
-            
-            <Popover
-              width={600}
-              position="bottom"
-              withArrow
-              shadow="md"
-              opened={opened}
-              onChange={setOpened}
-            >
-              <Popover.Target>
-                <Button
-                  variant="subtle"
-                  radius="md"
-                  rightSection={<IconChevronDown size={16} />}
-                  onMouseEnter={() => setOpened(true)}
-                  onMouseLeave={() => setOpened(false)}
-                >
-                  Categories
-                </Button>
-              </Popover.Target>
-              <Popover.Dropdown
-                onMouseEnter={() => setOpened(true)}
-                onMouseLeave={() => setOpened(false)}
-              >
-                {isLoading ? (
-                  <Box p="sm">Loading...</Box>
-                ) : (
-                  <Group gap="md" wrap="wrap">
-                    {categories.map((category) => (
-                      <Button
-                        key={category.slug}
-                        variant="subtle"
-                        size="sm"
-                        onClick={() => handleCategoryClick(category.slug)}
-                        style={{ whiteSpace: "wrap" }}
-                      >
-                        {category.name}
-                      </Button>
-                    ))}
-                  </Group>
-                )}
-              </Popover.Dropdown>
-            </Popover>
-
-            <form onSubmit={handleSearch} style={{ flex: 1, maxWidth: 300 }}>
-              <TextInput
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.currentTarget.value)}
-                leftSection={<IconSearch size={18} />}
-                rightSection={
-                  <ActionIcon type="submit" variant="subtle">
-                    <IconSearch size={18} />
-                  </ActionIcon>
-                }
-                style={{ width: "100%" }}
-              />
-            </form>
-          </Group>
-
-          <Group gap="sm" style={{ overflow: "visible" }}>
-            <ActionIcon variant="subtle" size="lg" radius="xl">
-              <IconUser size={20} />
-            </ActionIcon>
-            <FavoritesIcon />
-            <CartIcon />
-          </Group>
+        <Box component="form" onSubmit={handleSearch} w={{ base: 132, sm: 180 }} className="header-search">
+          <TextInput
+            variant="unstyled"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.currentTarget.value)}
+            leftSection={<IconSearch size={16} stroke={1.4} color={ink} />}
+            styles={{
+              input: {
+                background: "transparent",
+                color: ink,
+                borderBottom: `1px solid ${solid ? "#171717" : "rgba(255,255,255,0.9)"}`,
+                borderRadius: 0,
+                fontSize: 14,
+                "--input-placeholder-color": solid ? "#8a8a8a" : "rgba(255,255,255,0.92)",
+              },
+            }}
+          />
+        </Box>
+        <Link
+          to="/"
+          style={{
+            textDecoration: "none",
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: '"Playfair Display", Georgia, serif',
+              fontSize: 32,
+              lineHeight: 1,
+              color: ink,
+              fontWeight: 500,
+              textShadow: solid ? "none" : "0 1px 10px rgba(0,0,0,0.4)",
+            }}
+          >
+            ShopHub
+          </Text>
+        </Link>
+        <Group gap={2} wrap="nowrap">
+          <FavoritesIcon color={ink} />
+          <CartIcon color={ink} />
         </Group>
-      </Container>
+      </Group>
+      <Group
+        justify="space-between"
+        gap={18}
+        px={{ base: 16, md: 28 }}
+        wrap="nowrap"
+        className="header-nav"
+        mt={14}
+        pb={6}
+        style={{ overflowX: "auto" }}
+      >
+        {NAV.map((item) => {
+          const active =
+            "to" in item
+              ? location.pathname === "/products" && !category
+              : category === item.category;
+          if ("to" in item) {
+            return (
+              <Link key={item.label} to={item.to} style={itemStyle(active)}>
+                {item.label}
+              </Link>
+            );
+          }
+          return (
+            <Text
+              key={item.label}
+              component="button"
+              onClick={() => navigate({ to: "/products", search: { category: item.category } })}
+              style={itemStyle(active)}
+            >
+              {item.label}
+            </Text>
+          );
+        })}
+      </Group>
     </AppShell.Header>
-    </motion.div>
   );
 };

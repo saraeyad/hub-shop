@@ -1,51 +1,49 @@
-import { Group, Text, Box } from "@mantine/core";
-import { IconTruck, IconRotateClockwise, IconShieldLock } from "@tabler/icons-react";
-import { motion } from "framer-motion";
+import { Text, Box, SimpleGrid, Stack } from "@mantine/core";
+import { Link } from "@tanstack/react-router";
+import { IconHanger, IconTruck, IconSparkles } from "@tabler/icons-react";
 
-const trustFactors = [
+const factors = [
+  {
+    icon: IconHanger,
+    title: "A considered edit",
+    text: "Pieces chosen for the way they sit together.",
+  },
   {
     icon: IconTruck,
-    text: "Free Shipping over $50",
-    color: "brown",
+    title: "Free delivery and returns",
+    text: "On orders over $50, sent back within 30 days.",
   },
   {
-    icon: IconRotateClockwise,
-    text: "30-Day Easy Returns",
-    color: "brown",
-  },
-  {
-    icon: IconShieldLock,
-    text: "Secure Payments",
-    color: "brown",
+    icon: IconSparkles,
+    title: "The quiet extras",
+    text: "Ratings, favorites, and a cart that stays with you.",
   },
 ];
 
 export const TrustFactors = () => {
   return (
-    <Box
-      style={{
-        backgroundColor: "linear-gradient(135deg, #8b6f47 0%, #6d5638 100%)",
-        padding: "20px 0",
-        borderBottom: "1px solid #e0d4c4",
-      }}
-    >
-      <Group justify="center" gap="xl" wrap="wrap">
-        {trustFactors.map((factor, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-            <Group gap="sm">
-              <factor.icon size={24} color={`var(--mantine-color-${factor.color}-6)`} />
-              <Text size="sm" fw={500} c="dark">
-                {factor.text}
-              </Text>
-            </Group>
-          </motion.div>
+    <Box py={48} px="lg" style={{ borderBottom: "1px solid #eee" }}>
+      <SimpleGrid cols={{ base: 1, sm: 3 }} maw={1000} mx="auto" spacing={40}>
+        {factors.map((factor) => (
+          <Stack key={factor.title} align="center" gap={6} ta="center">
+            <factor.icon size={22} stroke={1.2} color="#111" />
+            <Text fw={600} size="sm" c="#111">
+              {factor.title}
+            </Text>
+            <Text size="sm" c="#666" maw={240}>
+              {factor.text}
+            </Text>
+            <Text
+              component={Link}
+              to="/products"
+              size="sm"
+              style={{ color: "#111", textDecoration: "underline", textUnderlineOffset: 3 }}
+            >
+              Discover
+            </Text>
+          </Stack>
         ))}
-      </Group>
+      </SimpleGrid>
     </Box>
   );
 };

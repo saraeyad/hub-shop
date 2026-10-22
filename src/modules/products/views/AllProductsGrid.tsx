@@ -23,7 +23,7 @@ export const AllProductsGrid = () => {
   if (error) {
     return (
       <Center h={200}>
-        <Text c="brown">Error loading products</Text>
+        <Text c="brand.8">Error loading products</Text>
       </Center>
     );
   }

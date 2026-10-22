@@ -41,19 +41,12 @@ export const Categories = () => {
     <Container size="lg" py="lg">
       <Stack gap="xl">
         <Box>
-          <Title
-            order={1}
-            ta="center"
-            mb="xs"
-            style={{
-              fontSize: "2rem",
-              fontWeight: 900,
-            }}
-          >
-            Explore Our Categories
+          <Title order={2} ta="center" mb={6} c="#111111">
+            Browse by category
           </Title>
-          <Text ta="center" size="md" c="dimmed" mb="xl">
-            Discover amazing products across all categories
+          <Box mx="auto" mb="md" style={{ width: 56, height: 2, background: "#171717" }} />
+          <Text ta="center" size="md" c="#575757" mb="xl">
+            Jump into a shelf without scrolling the whole catalog.
           </Text>
         </Box>
 

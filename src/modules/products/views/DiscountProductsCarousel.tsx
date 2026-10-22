@@ -115,7 +115,7 @@ export const DiscountProductsCarousel = ({
                             <Text size="sm" c="dimmed" td="line-through">
                               ${product.price.toFixed(2)}
                             </Text>
-                            <Text size="lg" fw={700} c="gold.5">
+                            <Text size="lg" fw={700} c="brand.8">
                               ${product.discountedPrice.toFixed(2)}
                             </Text>
                           </>
@@ -126,7 +126,7 @@ export const DiscountProductsCarousel = ({
                         )}
                       </Group>
 
-                      <Button color="brown" fullWidth radius="md" size="sm">
+                      <Button color="brand" fullWidth radius="md" size="sm">
                         Add to Cart
                       </Button>
                     </Box>
