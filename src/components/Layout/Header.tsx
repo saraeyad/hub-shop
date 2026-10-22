@@ -1,19 +1,21 @@
-import { AppShell, Group, Text, Container, Button, Popover, Box, TextInput, ActionIcon } from "@mantine/core";
+import { AppShell, Group, Text, Box, TextInput, Popover, Button } from "@mantine/core";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { CartIcon } from "../../modules/cart/views";
 import { FavoritesIcon } from "../../modules/favorites/views/FavoritesIcon";
 import { useGetAllCategories } from "../../modules/categories/hooks/useGetAllCategories";
-import { IconChevronDown, IconSearch } from "@tabler/icons-react";
+import { IconSearch } from "@tabler/icons-react";
 import { useState } from "react";
 
-const navLinkStyle = (active: boolean) => ({
-  color: active ? "#4c1d95" : "#575757",
-  fontWeight: active ? 700 : 500,
-  fontSize: "0.95rem",
-  background: "transparent",
-  borderBottom: active ? "2px solid #7c3aed" : "2px solid transparent",
-  borderRadius: 0,
-  paddingInline: 8,
+const linkStyle = (active: boolean) => ({
+  color: active ? "#111111" : "#3a3a3a",
+  fontSize: 11,
+  letterSpacing: "0.14em",
+  textTransform: "uppercase" as const,
+  textDecoration: "none",
+  fontWeight: 500,
+  whiteSpace: "nowrap" as const,
+  borderBottom: active ? "1px solid #111" : "1px solid transparent",
+  paddingBottom: 2,
 });
 
 export const Header = () => {
@@ -23,133 +25,92 @@ export const Header = () => {
   const [opened, setOpened] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleCategoryClick = (categorySlug: string) => {
-    navigate({
-      to: "/products",
-      search: { category: categorySlug },
-    });
-    setOpened(false);
-  };
-
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate({ to: "/products" });
-    }
+    if (searchQuery.trim()) navigate({ to: "/products" });
   };
 
   const homeActive = location.pathname === "/";
   const productsActive = location.pathname.startsWith("/products");
 
   return (
-    <AppShell.Header
-      style={{
-        background: "transparent",
-        border: "none",
-        boxShadow: "none",
-      }}
-    >
-      <Container size="lg" h="100%" pt={16}>
-        <Group
-          justify="space-between"
-          align="center"
-          h={64}
-          px="lg"
-          wrap="nowrap"
-          style={{
-            background: "#ffffff",
-            borderRadius: 999,
-            border: "1px solid #ddd3f0",
-            boxShadow: "0 8px 24px rgba(76, 29, 149, 0.10)",
-          }}
-        >
-          <Link to="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
-            <Box
-              style={{
-                width: 32,
-                height: 32,
-                borderRadius: 10,
-                background: "#7c3aed",
-                color: "#fff",
-                display: "grid",
-                placeItems: "center",
-                fontWeight: 700,
-              }}
-            >
-              S
-            </Box>
-            <Text fw={700} c="#4c1d95" size="lg">
-              ShopHub
-            </Text>
-          </Link>
-
-          <Group gap="sm" visibleFrom="md" wrap="nowrap">
-            <Button component={Link} to="/" variant="subtle" style={navLinkStyle(homeActive)}>
-              Home
-            </Button>
-            <Button component={Link} to="/products" variant="subtle" style={navLinkStyle(productsActive)}>
-              Products
-            </Button>
-            <Popover width={560} position="bottom" shadow="md" opened={opened} onChange={setOpened}>
-              <Popover.Target>
-                <Button
-                  variant="subtle"
-                  rightSection={<IconChevronDown size={16} />}
-                  style={navLinkStyle(false)}
-                  onMouseEnter={() => setOpened(true)}
-                  onMouseLeave={() => setOpened(false)}
-                >
-                  Categories
-                </Button>
-              </Popover.Target>
-              <Popover.Dropdown onMouseEnter={() => setOpened(true)} onMouseLeave={() => setOpened(false)}>
-                {isLoading ? (
-                  <Box p="sm">Loading...</Box>
-                ) : (
-                  <Group gap="xs" wrap="wrap">
-                    {categories.map((category) => (
-                      <Button
-                        key={category.slug}
-                        variant="light"
-                        color="brand"
-                        size="xs"
-                        radius="xl"
-                        onClick={() => handleCategoryClick(category.slug)}
-                      >
-                        {category.name}
-                      </Button>
-                    ))}
-                  </Group>
-                )}
-              </Popover.Dropdown>
-            </Popover>
-          </Group>
-
-          <Group gap="xs" wrap="nowrap" style={{ flexShrink: 0 }}>
-            <Box component="form" onSubmit={handleSearch} w={220} visibleFrom="sm">
-              <TextInput
-                placeholder="Search products"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.currentTarget.value)}
-                leftSection={<IconSearch size={16} />}
-                size="sm"
-              />
-            </Box>
-            <ActionIcon
-              variant="subtle"
-              size="lg"
-              radius="xl"
-              aria-label="Search"
-              hiddenFrom="sm"
-              onClick={() => navigate({ to: "/products" })}
-            >
-              <IconSearch size={18} color="#4c1d95" />
-            </ActionIcon>
-            <FavoritesIcon />
-            <CartIcon />
-          </Group>
+    <AppShell.Header style={{ background: "#ffffff", borderBottom: "1px solid #ececec" }}>
+      <Box ta="center" py={6} style={{ background: "#f7f5f2", fontSize: 12, letterSpacing: "0.04em" }}>
+        Complimentary delivery over $50
+      </Box>
+      <Group justify="space-between" align="center" px={{ base: "md", md: 36 }} h={64} wrap="nowrap" style={{ position: "relative" }}>
+        <Box component="form" onSubmit={handleSearch} w={180} visibleFrom="sm">
+          <TextInput
+            variant="unstyled"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.currentTarget.value)}
+            leftSection={<IconSearch size={16} stroke={1.4} />}
+            styles={{
+              input: {
+                borderBottom: "1px solid #111",
+                borderRadius: 0,
+                fontSize: 14,
+              },
+            }}
+          />
+        </Box>
+        <Box hiddenFrom="sm" w={24} />
+        <Link to="/" style={{ textDecoration: "none", position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
+          <Text
+            style={{
+              fontFamily: '"Playfair Display", Georgia, serif',
+              fontSize: 30,
+              lineHeight: 1,
+              color: "#111",
+              fontWeight: 500,
+            }}
+          >
+            ShopHub
+          </Text>
+        </Link>
+        <Group gap={4} wrap="nowrap">
+          <FavoritesIcon />
+          <CartIcon />
         </Group>
-      </Container>
+      </Group>
+      <Group justify="center" gap={22} px="md" pb={10} wrap="nowrap" style={{ overflowX: "auto" }}>
+        <Link to="/" style={linkStyle(homeActive)}>Home</Link>
+        <Link to="/products" style={linkStyle(productsActive)}>New arrivals</Link>
+        <Popover opened={opened} onChange={setOpened} position="bottom" width={520} shadow="xs">
+          <Popover.Target>
+            <Text
+              component="button"
+              onClick={() => setOpened((value) => !value)}
+              style={{ ...linkStyle(false), background: "none", border: "none", cursor: "pointer" }}
+            >
+              Categories
+            </Text>
+          </Popover.Target>
+          <Popover.Dropdown>
+            {isLoading ? (
+              <Text size="sm">Loading</Text>
+            ) : (
+              <Group gap="xs">
+                {categories.map((category) => (
+                  <Button
+                    key={category.slug}
+                    variant="subtle"
+                    color="brand"
+                    size="xs"
+                    onClick={() => {
+                      navigate({ to: "/products", search: { category: category.slug } });
+                      setOpened(false);
+                    }}
+                  >
+                    {category.name}
+                  </Button>
+                ))}
+              </Group>
+            )}
+          </Popover.Dropdown>
+        </Popover>
+      </Group>
     </AppShell.Header>
   );
 };

@@ -88,7 +88,7 @@ export const CategoryCard = ({ category }: CategoryCardProps) => {
       }
       style={{
         cursor: "pointer",
-        borderColor: "#ddd3f0",
+        borderColor: "#e5e5e5",
         height: "100%",
         display: "flex",
         flexDirection: "column",

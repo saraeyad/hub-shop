@@ -82,7 +82,7 @@ function ProductsPage() {
               <Anchor
                 component={Link}
                 to="/"
-                c="#4c1d95"
+                c="#111111"
                 size="sm"
                 style={{
                   textDecoration: 'none',
@@ -99,7 +99,7 @@ function ProductsPage() {
               <Anchor
                 component={Link}
                 to="/products"
-                c="#4c1d95"
+                c="#111111"
                 size="sm"
                 style={{
                   textDecoration: 'none',
@@ -112,7 +112,7 @@ function ProductsPage() {
               </Anchor>
               {category && (
                 <Text 
-                  c="#4c1d95" 
+                  c="#111111" 
                   size="sm"
                   fw={600}
                   style={{

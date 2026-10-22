@@ -53,7 +53,7 @@ export const CartPage = () => {
         >
           <Container size="lg" py="xl">
             <Stack align="center" gap="xl" style={{ minHeight: "60vh", justifyContent: "center" }}>
-              <Title order={2} c="#4c1d95">
+              <Title order={2} c="#111111">
                 Your cart is empty
               </Title>
               <Text size="lg" c="#575757" ta="center">
@@ -93,7 +93,7 @@ export const CartPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <Title order={1} mb="xl" c="#4c1d95">
+            <Title order={1} mb="xl" c="#111111">
               Shopping Cart
             </Title>
           </motion.div>

@@ -1,7 +1,6 @@
-import { Container, Title, Group, Button, Box, Stack, Text } from "@mantine/core";
+import { Container, Title, Group, Box, Text } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import { Link } from "@tanstack/react-router";
-import { IconArrowRight } from "@tabler/icons-react";
 import { ProductCard } from "../modules/products/views/ProductCard";
 import type { ProductsWithDiscountPrice } from "../modules/products/hooks/useGetAllProducts";
 
@@ -16,7 +15,6 @@ type ProductSliderProps = {
 
 export const ProductSlider = ({
   title,
-  subtitle,
   products,
   showViewAll = true,
   viewAllLink = "/products",
@@ -25,34 +23,36 @@ export const ProductSlider = ({
   if (products.length === 0) return null;
 
   return (
-    <Container size="xl" py={48}>
-      <Stack align="center" gap={6} mb="xl">
-        <Title order={2} ta="center" c="#4c1d95">
-          {title}
+    <Container size="xl" py={56}>
+      <Group justify="space-between" align="flex-end" mb={28}>
+        <Title order={2} style={{ fontSize: "2rem", fontWeight: 500 }}>
+          {title} <Text span c="#111">—</Text>
         </Title>
-        <Box style={{ width: 56, height: 2, background: "#7c3aed" }} />
-        {subtitle ? (
-          <Text c="#575757" ta="center" maw={520}>
-            {subtitle}
+        {showViewAll ? (
+          <Text
+            component={Link}
+            to={viewAllLink}
+            size="sm"
+            style={{ color: "#111", textDecoration: "underline", textUnderlineOffset: 3 }}
+          >
+            Discover
           </Text>
         ) : null}
-      </Stack>
+      </Group>
 
       <Carousel
-        slideSize={{ base: "85%", sm: "48%", md: "31%", lg: "23%" }}
-        slideGap="lg"
+        slideSize={{ base: "78%", sm: "46%", md: "31%", lg: "24%" }}
+        slideGap="xl"
         withControls
         withIndicators={false}
-        controlSize={42}
+        controlSize={34}
         styles={{
           control: {
             backgroundColor: "#ffffff",
-            border: "1px solid #d4c6ee",
-            color: "#4c1d95",
-            "&[data-inactive]": {
-              opacity: 0,
-              cursor: "default",
-            },
+            border: "1px solid #e5e5e5",
+            color: "#111",
+            borderRadius: 0,
+            "&[data-inactive]": { opacity: 0, cursor: "default" },
           },
         }}
       >
@@ -64,14 +64,6 @@ export const ProductSlider = ({
           </Carousel.Slide>
         ))}
       </Carousel>
-
-      {showViewAll ? (
-        <Group justify="center" mt="xl">
-          <Button component={Link} to={viewAllLink} variant="subtle" color="brand" rightSection={<IconArrowRight size={16} />}>
-            View all
-          </Button>
-        </Group>
-      ) : null}
     </Container>
   );
 };

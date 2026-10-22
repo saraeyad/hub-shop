@@ -1,54 +1,45 @@
 import { Text, Box, SimpleGrid, Stack } from "@mantine/core";
-import { IconTruck, IconRotateClockwise, IconShieldLock } from "@tabler/icons-react";
+import { Link } from "@tanstack/react-router";
+import { IconHanger, IconTruck, IconSparkles } from "@tabler/icons-react";
 
-const trustFactors = [
+const factors = [
+  {
+    icon: IconHanger,
+    title: "A considered edit",
+    text: "Pieces chosen for the way they sit together.",
+  },
   {
     icon: IconTruck,
-    title: "Free shipping",
-    text: "On orders over $50.",
+    title: "Free delivery and returns",
+    text: "On orders over $50, sent back within 30 days.",
   },
   {
-    icon: IconRotateClockwise,
-    title: "Easy returns",
-    text: "30 days to change your mind.",
-  },
-  {
-    icon: IconShieldLock,
-    title: "Secure payments",
-    text: "Checkout that stays on this device.",
+    icon: IconSparkles,
+    title: "The quiet extras",
+    text: "Ratings, favorites, and a cart that stays with you.",
   },
 ];
 
 export const TrustFactors = () => {
   return (
-    <Box py={64} px="lg">
-      <Stack align="center" gap={6} mb={36}>
-        <Text fw={700} size="xl" c="#4c1d95" ta="center">
-          A clearer way to shop
-        </Text>
-        <Box style={{ width: 56, height: 2, background: "#7c3aed" }} />
-      </Stack>
-      <SimpleGrid cols={{ base: 1, sm: 3 }} maw={960} mx="auto" spacing="xl">
-        {trustFactors.map((factor) => (
-          <Stack key={factor.title} gap={8}>
-            <Box
-              style={{
-                width: 42,
-                height: 42,
-                borderRadius: 999,
-                background: "#ede6fb",
-                color: "#7c3aed",
-                display: "grid",
-                placeItems: "center",
-              }}
-            >
-              <factor.icon size={20} />
-            </Box>
-            <Text fw={700} c="#4c1d95">
+    <Box py={48} px="lg" style={{ borderBottom: "1px solid #eee" }}>
+      <SimpleGrid cols={{ base: 1, sm: 3 }} maw={1000} mx="auto" spacing={40}>
+        {factors.map((factor) => (
+          <Stack key={factor.title} align="center" gap={6} ta="center">
+            <factor.icon size={22} stroke={1.2} color="#111" />
+            <Text fw={600} size="sm" c="#111">
               {factor.title}
             </Text>
-            <Text size="sm" c="#575757">
+            <Text size="sm" c="#666" maw={240}>
               {factor.text}
+            </Text>
+            <Text
+              component={Link}
+              to="/products"
+              size="sm"
+              style={{ color: "#111", textDecoration: "underline", textUnderlineOffset: 3 }}
+            >
+              Discover
             </Text>
           </Stack>
         ))}

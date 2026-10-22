@@ -1,6 +1,7 @@
-import { Card, Image, Text, Badge, Group, Button, ActionIcon, Stack, Box } from "@mantine/core";
-import { Link, useNavigate } from "@tanstack/react-router";
-import { IconHeart, IconStarFilled } from "@tabler/icons-react";
+import { Image, Text, Group, ActionIcon, Stack, Box } from "@mantine/core";
+import { Link } from "@tanstack/react-router";
+import { IconHeart } from "@tabler/icons-react";
+import { useState } from "react";
 import type { ProductsWithDiscountPrice } from "../hooks/useGetAllProducts";
 import { useCart } from "../../cart/hooks/useCart";
 import { useFavorites } from "../../favorites/hooks/useFavorites";
@@ -12,10 +13,10 @@ type ProductCardProps = {
 };
 
 export const ProductCard = ({ product, showNewBadge = false }: ProductCardProps) => {
-  const navigate = useNavigate();
+  const [hovered, setHovered] = useState(false);
   const { addItem } = useCart();
   const { addItem: addFavorite, removeItem: removeFavorite, isFavorite: checkFavorite } = useFavorites();
-  const hasDiscount = product.hasDiscounts && product.discountPercentage;
+  const hasDiscount = Boolean(product.hasDiscounts && product.discountPercentage);
   const isFavorite = checkFavorite(product.id);
   const price = hasDiscount ? product.discountedPrice : product.price;
 
@@ -57,98 +58,81 @@ export const ProductCard = ({ product, showNewBadge = false }: ProductCardProps)
   };
 
   return (
-    <Card
-      padding="md"
-      radius="lg"
-      withBorder
-      style={{
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        background: "#ffffff",
-        borderColor: "#ddd3f0",
-      }}
+    <Stack
+      gap={10}
+      h="100%"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      <Card.Section>
-        <Box pos="relative" h={210} bg="#f3f0f8">
-          <Link
-            to="/products/$productId"
-            params={{ productId: String(product.id) }}
-            style={{ display: "grid", placeItems: "center", height: "100%", padding: 16 }}
-          >
-            <Image src={product.image} alt={product.name} mah={170} fit="contain" />
-          </Link>
-          <Group pos="absolute" top={12} left={12} gap={6}>
-            {showNewBadge && (
-              <Badge color="brand" variant="filled" radius="xl">
-                New
-              </Badge>
-            )}
-            {hasDiscount && (
-              <Badge radius="xl" style={{ background: "#f6c90e", color: "#1f2428" }}>
-                {product.discountPercentage}% off
-              </Badge>
-            )}
-          </Group>
-          <ActionIcon
-            variant={isFavorite ? "filled" : "white"}
-            color={isFavorite ? "red" : "brand"}
-            radius="xl"
-            onClick={handleFavorite}
-            aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-            style={{ position: "absolute", top: 12, right: 12 }}
-          >
-            <IconHeart size={16} fill={isFavorite ? "currentColor" : "none"} />
-          </ActionIcon>
-        </Box>
-      </Card.Section>
-
-      <Stack gap={6} mt="md" style={{ flex: 1 }}>
+      <Box pos="relative" h={320} style={{ background: "#fafafa" }}>
         <Link
           to="/products/$productId"
           params={{ productId: String(product.id) }}
-          style={{ textDecoration: "none" }}
+          style={{ display: "grid", placeItems: "center", height: "100%", padding: 18 }}
         >
-          <Text fw={700} c="#4c1d95" lineClamp={2}>
+          <Image src={product.image} alt={product.name} mah={280} fit="contain" />
+        </Link>
+        <ActionIcon
+          variant="transparent"
+          aria-label={isFavorite ? "Remove from favorites" : "Save"}
+          onClick={handleFavorite}
+          style={{
+            position: "absolute",
+            top: 8,
+            right: 8,
+            opacity: hovered || isFavorite ? 1 : 0,
+            color: "#111",
+          }}
+        >
+          <IconHeart size={18} stroke={1.4} fill={isFavorite ? "#111" : "none"} />
+        </ActionIcon>
+      </Box>
+
+      <Box pt={8} style={{ borderTop: "1px solid #ececec" }}>
+        <Text size="xs" fw={600} style={{ letterSpacing: "0.12em", textTransform: "uppercase" }}>
+          {product.category}
+        </Text>
+        <Link
+          to="/products/$productId"
+          params={{ productId: String(product.id) }}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <Text size="sm" mt={2} lineClamp={2}>
             {product.name}
           </Text>
         </Link>
-        <Group gap={4}>
-          <IconStarFilled size={14} color="#f6c90e" />
-          <Text size="sm" fw={700} c="#1f2428">
-            {product.rating.toFixed(1)}
-          </Text>
-        </Group>
-        <Group gap={8} align="baseline">
+        <Group gap={8} mt={6}>
           {hasDiscount ? (
-            <Text size="sm" c="#89949d" td="line-through">
+            <Text size="sm" c="#999" td="line-through">
               ${product.price.toFixed(2)}
             </Text>
           ) : null}
-          <Text fw={700} c="#4c1d95">
-            ${price.toFixed(2)}
-          </Text>
+          <Text size="sm">${price.toFixed(2)}</Text>
+          {showNewBadge ? (
+            <Text size="xs" c="#666">
+              New
+            </Text>
+          ) : null}
         </Group>
-      </Stack>
-
-      <Group gap="xs" mt="md" grow>
-        <Button
-          variant="outline"
-          color="brand"
-          size="xs"
-          onClick={() =>
-            navigate({
-              to: "/products/$productId",
-              params: { productId: String(product.id) },
-            })
-          }
+        <Text
+          component="button"
+          onClick={handleAddToCart}
+          mt={8}
+          size="sm"
+          disabled={!product.isAvailable}
+          style={{
+            background: "none",
+            border: "none",
+            padding: 0,
+            cursor: product.isAvailable ? "pointer" : "default",
+            textDecoration: "underline",
+            textUnderlineOffset: 3,
+            color: "#111",
+          }}
         >
-          Details
-        </Button>
-        <Button color="brand" size="xs" onClick={handleAddToCart} disabled={!product.isAvailable}>
-          Add to cart
-        </Button>
-      </Group>
-    </Card>
+          {product.isAvailable ? "Add to cart" : "Sold out"}
+        </Text>
+      </Box>
+    </Stack>
   );
 };

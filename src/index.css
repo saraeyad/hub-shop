@@ -1,25 +1,25 @@
 :root {
-  --page-bg: #f6f3fb;
+  --page-bg: #ffffff;
   --surface: #ffffff;
-  --band: #efeaf8;
-  --brand: #7c3aed;
-  --brand-deep: #4c1d95;
-  --brand-soft: #ede6fb;
-  --ink: #2a2433;
-  --muted: #6d6578;
-  --star: #f6c90e;
-  --ok: #2eaf4e;
-  --alert: #d64545;
-  --footer-bg: #f3ecff;
-  --line: #ddd3f0;
+  --band: #ffffff;
+  --brand: #171717;
+  --brand-deep: #111111;
+  --brand-soft: #f6f6f6;
+  --ink: #171717;
+  --muted: #6b6b6b;
+  --star: #171717;
+  --ok: #171717;
+  --alert: #171717;
+  --footer-bg: #ffffff;
+  --line: #e6e6e6;
 
   --body-bg: var(--page-bg);
   --text-color: var(--ink);
   --border-color: var(--line);
   --primary-color: var(--brand);
-  --accent-color: var(--star);
+  --accent-color: var(--ink);
 
-  font-family: "Cairo", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Jost", "Segoe UI", Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   text-rendering: optimizeLegibility;

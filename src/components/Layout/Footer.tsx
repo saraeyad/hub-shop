@@ -19,18 +19,18 @@ export const Footer = () => {
     <Box
       component="footer"
       style={{
-        backgroundColor: "#f3ecff",
+        backgroundColor: "#ffffff",
         color: "#414141",
         padding: "60px 0 30px",
         marginTop: "auto",
-        borderTop: "1px solid #ddd3f0",
+        borderTop: "1px solid #e5e5e5",
       }}
     >
       <Container size="lg">
         <Grid gutter="xl">
           <Grid.Col span={{ base: 12, md: 4 }}>
             <Stack gap="md">
-              <Title order={3} c="#4c1d95" fw={700}>
+              <Title order={3} c="#111111" fw={700}>
                 ShopHub
               </Title>
               <Text size="sm" c="gray.5" style={{ lineHeight: 1.8 }}>
@@ -52,7 +52,7 @@ export const Footer = () => {
 
           <Grid.Col span={{ base: 12, md: 4 }}>
             <Stack gap="md">
-              <Title order={4} c="#4c1d95" fw={600}>
+              <Title order={4} c="#111111" fw={600}>
                 Newsletter
               </Title>
               <Text size="sm" c="gray.5">
@@ -78,7 +78,7 @@ export const Footer = () => {
 
           <Grid.Col span={{ base: 12, md: 4 }}>
             <Stack gap="md">
-              <Title order={4} c="#4c1d95" fw={600}>
+              <Title order={4} c="#111111" fw={600}>
                 Quick Links
               </Title>
               <Stack gap="xs">
@@ -97,7 +97,7 @@ export const Footer = () => {
 
           <Grid.Col span={{ base: 12, md: 4 }}>
             <Stack gap="md">
-              <Title order={4} c="#4c1d95" fw={600}>
+              <Title order={4} c="#111111" fw={600}>
                 Contact Us
               </Title>
               <Stack gap="md">
@@ -126,7 +126,7 @@ export const Footer = () => {
           </Grid.Col>
         </Grid>
 
-        <Divider my="xl" color="#ddd3f0" />
+        <Divider my="xl" color="#e5e5e5" />
 
         <Stack gap="md">
           <Box>

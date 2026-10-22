@@ -72,9 +72,10 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
               <Image
                 src={product.image}
                 alt={product.name}
-                radius="md"
-                fit="cover"
-                style={{ width: '100%', height: 'auto' }}
+                radius={0}
+                fit="contain"
+                mah={640}
+                style={{ width: '100%', background: '#fafafa', padding: 24 }}
               />
             </motion.div>
           </Grid.Col>
@@ -93,9 +94,9 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
                 animate={badgeAnimations.animate}
                 transition={badgeAnimations.transition}
               >
-                <Badge color="gold" size="lg" variant="light">
+                <Text size="xs" fw={600} style={{ letterSpacing: "0.14em", textTransform: "uppercase" }}>
                   {product.category}
-                </Badge>
+                </Text>
               </motion.div>
 
             {/* Product Name */}
@@ -103,7 +104,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
 
             {/* Rating */}
             <Group gap="xs">
-              <Rating value={product.rating} readOnly size="sm" />
+              <Rating value={product.rating} readOnly size="sm" color="dark" />
               <Text size="sm" c="#575757">
                 ({product.rating} / 5)
               </Text>
@@ -119,9 +120,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
                   <Text size="2rem" fw={700} c="brand.8">
                     ${discountedPrice.toFixed(2)}
                   </Text>
-                  <Badge color="gold" size="lg">
-                    {product.discountPercentage}% OFF
-                  </Badge>
+                  <Text size="sm">{product.discountPercentage}% off</Text>
                 </Group>
               ) : (
                 <Text size="2rem" fw={700} c="brand.8">
@@ -131,17 +130,9 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
             </Box>
 
             {/* Availability */}
-            <Group>
-              {product.isAvailable ? (
-                <Badge color="green" size="lg">
-                  In Stock
-                </Badge>
-              ) : (
-                <Badge color="brand" size="lg">
-                  Out of Stock
-                </Badge>
-              )}
-            </Group>
+            <Text size="sm" c="#666">
+              {product.isAvailable ? "In stock" : "Sold out"}
+            </Text>
 
             <Divider />
 
@@ -175,13 +166,15 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
                 whileHover={buttonAnimations.hover}
                 whileTap={buttonAnimations.tap}
               >
-                <Button 
-                  color="brand" 
-                  size="lg" 
+                <Button
+                  color="brand"
+                  size="lg"
+                  radius={0}
                   disabled={!product.isAvailable}
                   onClick={handleAddToCart}
+                  style={{ minWidth: 220 }}
                 >
-                  Add to Cart
+                  Add to cart
                 </Button>
               </motion.div>
               <motion.div
@@ -236,7 +229,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
                     radius="md"
                     style={{
                       backgroundColor: '#ffffff',
-                      borderColor: "#ddd3f0",
+                      borderColor: "#e5e5e5",
                     }}
                   >
                   <Group justify="space-between" mb="sm">
@@ -244,7 +237,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
                       <Text fw={600} size="md" c="brand.8">
                         {review.reviewer.name}
                       </Text>
-                      <Rating value={review.rating} readOnly size="sm" />
+                      <Rating value={review.rating} readOnly size="sm" color="dark" />
                     </Group>
                     <Text size="sm" c="dimmed">
                       {new Date(review.date).toLocaleDateString('en-US', {
