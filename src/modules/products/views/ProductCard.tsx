@@ -66,11 +66,11 @@ export const ProductCard = ({ product, showNewBadge = false }: ProductCardProps)
         display: "flex",
         flexDirection: "column",
         background: "#ffffff",
-        borderColor: "#d7e6f2",
+        borderColor: "#ddd3f0",
       }}
     >
       <Card.Section>
-        <Box pos="relative" h={210} bg="#f5f6f8">
+        <Box pos="relative" h={210} bg="#f3f0f8">
           <Link
             to="/products/$productId"
             params={{ productId: String(product.id) }}
@@ -109,7 +109,7 @@ export const ProductCard = ({ product, showNewBadge = false }: ProductCardProps)
           params={{ productId: String(product.id) }}
           style={{ textDecoration: "none" }}
         >
-          <Text fw={700} c="#286292" lineClamp={2}>
+          <Text fw={700} c="#4c1d95" lineClamp={2}>
             {product.name}
           </Text>
         </Link>
@@ -125,7 +125,7 @@ export const ProductCard = ({ product, showNewBadge = false }: ProductCardProps)
               ${product.price.toFixed(2)}
             </Text>
           ) : null}
-          <Text fw={700} c="#286292">
+          <Text fw={700} c="#4c1d95">
             ${price.toFixed(2)}
           </Text>
         </Group>

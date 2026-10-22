@@ -34,7 +34,7 @@ export const FavoritesIcon = () => {
           onClick={() => setOpened(!opened)}
           style={{ position: "relative", overflow: "visible" }}
         >
-          <IconHeart size={20} color="#286292" />
+          <IconHeart size={20} color="#4c1d95" />
           {count > 0 && (
             <Badge
               size="xs"

@@ -35,7 +35,7 @@ export const FlashSaleCountdown = ({ endTime }: FlashSaleCountdownProps) => {
 
   return (
     <Group gap="sm" justify="center">
-      <Text size="sm" fw={600} c="#286292">
+      <Text size="sm" fw={600} c="#4c1d95">
         Ends in
       </Text>
       {chips.map((value, index) => (
@@ -43,9 +43,9 @@ export const FlashSaleCountdown = ({ endTime }: FlashSaleCountdownProps) => {
           key={index}
           px={12}
           py={6}
-          style={{ background: "#ffffff", borderRadius: 12, border: "1px solid #d7e6f2", minWidth: 48, textAlign: "center" }}
+          style={{ background: "#ffffff", borderRadius: 12, border: "1px solid #ddd3f0", minWidth: 48, textAlign: "center" }}
         >
-          <Text fw={700} c="#286292">
+          <Text fw={700} c="#4c1d95">
             {value}
           </Text>
         </Box>

@@ -1,17 +1,17 @@
 :root {
-  --page-bg: #eef5fb;
+  --page-bg: #f6f3fb;
   --surface: #ffffff;
-  --band: #f5f6f8;
-  --brand: #4b9ad2;
-  --brand-deep: #286292;
-  --brand-soft: #e4effa;
-  --ink: #414141;
-  --muted: #89949d;
+  --band: #efeaf8;
+  --brand: #7c3aed;
+  --brand-deep: #4c1d95;
+  --brand-soft: #ede6fb;
+  --ink: #2a2433;
+  --muted: #6d6578;
   --star: #f6c90e;
   --ok: #2eaf4e;
   --alert: #d64545;
-  --footer-bg: #eaf3fb;
-  --line: #d7e6f2;
+  --footer-bg: #f3ecff;
+  --line: #ddd3f0;
 
   --body-bg: var(--page-bg);
   --text-color: var(--ink);
@@ -39,4 +39,13 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
+}
+
+@keyframes hero-progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }

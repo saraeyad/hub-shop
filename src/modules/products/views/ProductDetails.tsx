@@ -236,7 +236,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
                     radius="md"
                     style={{
                       backgroundColor: '#ffffff',
-                      borderColor: "#d7e6f2",
+                      borderColor: "#ddd3f0",
                     }}
                   >
                   <Group justify="space-between" mb="sm">

@@ -27,10 +27,10 @@ export const ProductSlider = ({
   return (
     <Container size="xl" py={48}>
       <Stack align="center" gap={6} mb="xl">
-        <Title order={2} ta="center" c="#286292">
+        <Title order={2} ta="center" c="#4c1d95">
           {title}
         </Title>
-        <Box style={{ width: 56, height: 2, background: "#4b9ad2" }} />
+        <Box style={{ width: 56, height: 2, background: "#7c3aed" }} />
         {subtitle ? (
           <Text c="#575757" ta="center" maw={520}>
             {subtitle}
@@ -47,8 +47,8 @@ export const ProductSlider = ({
         styles={{
           control: {
             backgroundColor: "#ffffff",
-            border: "1px solid #cfe3f3",
-            color: "#286292",
+            border: "1px solid #d4c6ee",
+            color: "#4c1d95",
             "&[data-inactive]": {
               opacity: 0,
               cursor: "default",

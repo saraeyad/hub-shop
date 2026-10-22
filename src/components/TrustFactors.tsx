@@ -23,10 +23,10 @@ export const TrustFactors = () => {
   return (
     <Box py={64} px="lg">
       <Stack align="center" gap={6} mb={36}>
-        <Text fw={700} size="xl" c="#286292" ta="center">
+        <Text fw={700} size="xl" c="#4c1d95" ta="center">
           A clearer way to shop
         </Text>
-        <Box style={{ width: 56, height: 2, background: "#4b9ad2" }} />
+        <Box style={{ width: 56, height: 2, background: "#7c3aed" }} />
       </Stack>
       <SimpleGrid cols={{ base: 1, sm: 3 }} maw={960} mx="auto" spacing="xl">
         {trustFactors.map((factor) => (
@@ -36,15 +36,15 @@ export const TrustFactors = () => {
                 width: 42,
                 height: 42,
                 borderRadius: 999,
-                background: "#e4effa",
-                color: "#4b9ad2",
+                background: "#ede6fb",
+                color: "#7c3aed",
                 display: "grid",
                 placeItems: "center",
               }}
             >
               <factor.icon size={20} />
             </Box>
-            <Text fw={700} c="#286292">
+            <Text fw={700} c="#4c1d95">
               {factor.title}
             </Text>
             <Text size="sm" c="#575757">

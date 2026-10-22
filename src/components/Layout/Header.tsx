@@ -7,11 +7,11 @@ import { IconChevronDown, IconSearch } from "@tabler/icons-react";
 import { useState } from "react";
 
 const navLinkStyle = (active: boolean) => ({
-  color: active ? "#286292" : "#575757",
+  color: active ? "#4c1d95" : "#575757",
   fontWeight: active ? 700 : 500,
   fontSize: "0.95rem",
   background: "transparent",
-  borderBottom: active ? "2px solid #4b9ad2" : "2px solid transparent",
+  borderBottom: active ? "2px solid #7c3aed" : "2px solid transparent",
   borderRadius: 0,
   paddingInline: 8,
 });
@@ -59,8 +59,8 @@ export const Header = () => {
           style={{
             background: "#ffffff",
             borderRadius: 999,
-            border: "1px solid #d7e6f2",
-            boxShadow: "0 8px 24px rgba(40, 98, 146, 0.08)",
+            border: "1px solid #ddd3f0",
+            boxShadow: "0 8px 24px rgba(76, 29, 149, 0.10)",
           }}
         >
           <Link to="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
@@ -69,7 +69,7 @@ export const Header = () => {
                 width: 32,
                 height: 32,
                 borderRadius: 10,
-                background: "#4b9ad2",
+                background: "#7c3aed",
                 color: "#fff",
                 display: "grid",
                 placeItems: "center",
@@ -78,7 +78,7 @@ export const Header = () => {
             >
               S
             </Box>
-            <Text fw={700} c="#286292" size="lg">
+            <Text fw={700} c="#4c1d95" size="lg">
               ShopHub
             </Text>
           </Link>
@@ -143,7 +143,7 @@ export const Header = () => {
               hiddenFrom="sm"
               onClick={() => navigate({ to: "/products" })}
             >
-              <IconSearch size={18} color="#286292" />
+              <IconSearch size={18} color="#4c1d95" />
             </ActionIcon>
             <FavoritesIcon />
             <CartIcon />

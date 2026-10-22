@@ -113,7 +113,7 @@ export const CheckoutPage = () => {
       }}
     >
       <Container size="lg">
-        <Title order={1} mb="xl" c="#286292">
+        <Title order={1} mb="xl" c="#4c1d95">
           Checkout
         </Title>
 

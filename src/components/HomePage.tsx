@@ -65,7 +65,7 @@ export const HomePage = () => {
       />
 
       {flashSaleProducts.length > 0 && (
-        <Box style={{ background: "#e4effa" }} py={8}>
+        <Box style={{ background: "#ede6fb" }} py={8}>
           <Stack gap="md" pt={28}>
             <FlashSaleCountdown endTime={flashSaleEndTime} />
             <ProductSlider title="Flash sale" products={flashSaleProducts} showViewAll={false} />
@@ -84,10 +84,10 @@ export const HomePage = () => {
           p={{ base: "lg", md: 36 }}
           wrap="wrap"
           gap="lg"
-          style={{ background: "#ffffff", borderRadius: 24, border: "1px solid #d7e6f2" }}
+          style={{ background: "#ffffff", borderRadius: 24, border: "1px solid #ddd3f0" }}
         >
           <Stack gap={6} maw={640}>
-            <Text fw={700} size="xl" c="#286292">
+            <Text fw={700} size="xl" c="#4c1d95">
               Ready to look through the catalog?
             </Text>
             <Text c="#575757">

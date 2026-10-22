@@ -14,9 +14,9 @@ import { FavoritesProvider } from '../modules/favorites/index'
 import { CheckoutProvider } from '../modules/checkout/index'
 import { Layout } from '../components/Layout'
 
-const brand: MantineColorsTuple = ['#f4f9fd', '#eaf3fb', '#e4effa', '#cfe3f3', '#9cc9ea', '#6aafdc', '#4b9ad2', '#3a78a3', '#286292', '#1d4d73']
+const brand: MantineColorsTuple = ['#faf7ff', '#f3ecff', '#ede6fb', '#ddd3f0', '#c4b0ea', '#a078e0', '#7c3aed', '#6d28d9', '#4c1d95', '#2e1065']
 const gold: MantineColorsTuple = ['#fffbeb', '#fff4c2', '#ffe98a', '#fcdc4d', '#f8d12a', '#f6c90e', '#e0b400', '#c49c00', '#9a7a00', '#6d5600']
-const gray: MantineColorsTuple = ['#f7f8fa', '#f5f6f8', '#e8edf2', '#d5dee6', '#b7c3ce', '#89949d', '#6b767e', '#575757', '#414141', '#1f2428']
+const gray: MantineColorsTuple = ['#f7f8fa', '#f3f0f8', '#e8edf2', '#d5dee6', '#b7c3ce', '#89949d', '#6b767e', '#575757', '#414141', '#1f2428']
 
 const theme = createTheme({
   primaryColor: 'brand',
@@ -30,7 +30,7 @@ const theme = createTheme({
   defaultRadius: 'md',
   components: {
     Title: {
-      styles: { root: { color: '#286292' } },
+      styles: { root: { color: '#4c1d95' } },
     },
     Button: {
       defaultProps: { radius: 'md', color: 'brand' },
@@ -38,11 +38,11 @@ const theme = createTheme({
     },
     Card: {
       defaultProps: { radius: 'lg', shadow: 'xs', withBorder: true },
-      styles: { root: { borderColor: '#d7e6f2', backgroundColor: '#ffffff' } },
+      styles: { root: { borderColor: '#ddd3f0', backgroundColor: '#ffffff' } },
     },
     Input: {
       defaultProps: { radius: 'xl' },
-      styles: { input: { borderColor: '#cfe3f3', backgroundColor: '#ffffff', '&:focus': { borderColor: '#4b9ad2' } } },
+      styles: { input: { borderColor: '#d4c6ee', backgroundColor: '#ffffff', '&:focus': { borderColor: '#7c3aed' } } },
     },
     TextInput: {
       defaultProps: { radius: 'xl' },
