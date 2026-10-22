@@ -2,8 +2,6 @@
 
 متجر إلكتروني حديث مبني بـ React + TypeScript، يوفّر تجربة تسوق كاملة: تصفح المنتجات، الخصومات، المفضلة، السلة، وإتمام الطلب.
 
-**Live demo:** [https://react-project-jade-gamma-92.vercel.app](https://react-project-jade-gamma-92.vercel.app/)
-
 <p align="center">
   <img src="docs/demo/editorial-home.webp" alt="ShopHub homepage" width="900" />
 </p>
