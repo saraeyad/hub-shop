@@ -12,5 +12,4 @@ export interface ProductsRepository {
   getOne: (id: number) => Promise<Product>;
   getPaginated: (page: number, limit?: number) => Promise<PaginatedResponse>;
   getByCategory: (category: string) => Promise<Product[]>;
-  deleteOne: (id: number) => Promise<void>;
 }

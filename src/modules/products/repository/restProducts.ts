@@ -44,14 +44,5 @@ export const restProducts = (): ProductsRepository => {
       const data = await response.json();
       return toProduct(data.products);
     },
-    deleteOne: async (id: number) => {
-      const response = await fetch(`${Base_URL}/${id}`, {
-        method: 'DELETE',
-      });
-      if(!response.ok) {
-        throw new Error("Failed to delete product");
-      }
-      return;
-    }
   };
 };
