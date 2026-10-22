@@ -46,24 +46,24 @@ export const CartPage = () => {
       >
         <Box
           style={{
-            background: "linear-gradient(135deg, #8b6f47 0%, #6d5638 100%)",
+            background: "transparent",
             minHeight: "100vh",
             padding: "40px 0 60px",
           }}
         >
           <Container size="lg" py="xl">
             <Stack align="center" gap="xl" style={{ minHeight: "60vh", justifyContent: "center" }}>
-              <Title order={2} c="white">
+              <Title order={2} c="#286292">
                 Your cart is empty
               </Title>
-              <Text size="lg" c="gray.2" ta="center">
+              <Text size="lg" c="#575757" ta="center">
                 Add some products to your cart to get started!
               </Text>
               <motion.div
                 whileHover={buttonAnimations.hover}
                 whileTap={buttonAnimations.tap}
               >
-                <Button component={Link} to="/products" size="lg" mt="md" color="brown">
+                <Button component={Link} to="/products" size="lg" mt="md" color="brand">
                   Continue Shopping
                 </Button>
               </motion.div>
@@ -82,7 +82,7 @@ export const CartPage = () => {
     >
       <Box
         style={{
-          background: "linear-gradient(135deg, #8b6f47 0%, #6d5638 100%)",
+          background: "transparent",
           padding: "40px 0 60px",
           minHeight: "100vh",
         }}
@@ -93,7 +93,7 @@ export const CartPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <Title order={1} mb="xl" c="white">
+            <Title order={1} mb="xl" c="#286292">
               Shopping Cart
             </Title>
           </motion.div>
@@ -120,7 +120,7 @@ export const CartPage = () => {
                         }}
                         layout
                       >
-                        <Paper p="lg" radius="md" withBorder style={{ backgroundColor: "#faf8f6" }}>
+                        <Paper p="lg" radius="md" withBorder style={{ backgroundColor: "#ffffff" }}>
                     <Grid gutter="md">
                       <Grid.Col span={{ base: 12, sm: 3 }}>
                         <Image
@@ -151,12 +151,12 @@ export const CartPage = () => {
                                 <Text size="sm" c="dimmed" td="line-through">
                                   ${item.price.toFixed(2)}
                                 </Text>
-                                <Text size="md" fw={600} c="gold.5">
+                                <Text size="md" fw={600} c="brand.8">
                                   ${itemPrice.toFixed(2)}
                                 </Text>
                               </>
                             ) : (
-                              <Text size="md" fw={600} c="gold.5">
+                              <Text size="md" fw={600} c="brand.8">
                                 ${item.price.toFixed(2)}
                               </Text>
                             )}
@@ -172,7 +172,7 @@ export const CartPage = () => {
                             >
                               <ActionIcon
                                 variant="light"
-                                color="brown"
+                                color="brand"
                                 onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}
                               >
                                 <IconMinus size={16} />
@@ -187,14 +187,14 @@ export const CartPage = () => {
                             >
                               <ActionIcon
                                 variant="light"
-                                color="brown"
+                                color="brand"
                                 onClick={() => handleQuantityChange(item.productId, item.quantity + 1)}
                               >
                                 <IconPlus size={16} />
                               </ActionIcon>
                             </motion.div>
                           </Group>
-                          <Text size="lg" fw={700} c="gold.5">
+                          <Text size="lg" fw={700} c="brand.8">
                             ${itemTotal.toFixed(2)}
                           </Text>
                           <motion.div
@@ -221,7 +221,7 @@ export const CartPage = () => {
             </Grid.Col>
 
           <Grid.Col span={{ base: 12, md: 4 }}>
-            <Paper p="xl" radius="md" withBorder shadow="sm" style={{ position: "sticky", top: 80, backgroundColor: "#faf8f6" }}>
+            <Paper p="xl" radius="md" withBorder shadow="sm" style={{ position: "sticky", top: 80, backgroundColor: "#ffffff" }}>
               <Stack gap="md">
                 <Title order={3} mb="xs">
                   Order Summary
@@ -233,7 +233,7 @@ export const CartPage = () => {
                     <Text size="sm" c="dimmed">
                       Subtotal ({cart.items.length} items)
                     </Text>
-                    <Text size="sm" fw={500} c="gold.5">
+                    <Text size="sm" fw={500} c="brand.8">
                       ${cart.subtotal.toFixed(2)}
                     </Text>
                   </Group>
@@ -241,7 +241,7 @@ export const CartPage = () => {
                     <Text size="sm" c="dimmed">
                       Tax
                     </Text>
-                    <Text size="sm" fw={500} c="gold.5">
+                    <Text size="sm" fw={500} c="brand.8">
                       ${cart.tax.toFixed(2)}
                     </Text>
                   </Group>
@@ -249,7 +249,7 @@ export const CartPage = () => {
                     <Text size="sm" c="dimmed">
                       Shipping
                     </Text>
-                    <Text size="sm" fw={500} c="gold.5">
+                    <Text size="sm" fw={500} c="brand.8">
                       ${cart.shipping.toFixed(2)}
                     </Text>
                   </Group>
@@ -261,7 +261,7 @@ export const CartPage = () => {
                   <Text size="lg" fw={700}>
                     Total
                   </Text>
-                  <Text size="xl" fw={700} c="gold.5">
+                  <Text size="xl" fw={700} c="brand.8">
                     ${cart.total.toFixed(2)}
                   </Text>
                 </Group>
@@ -275,7 +275,7 @@ export const CartPage = () => {
                     to="/checkout"
                     size="lg"
                     fullWidth
-                    color="brown"
+                    color="brand"
                     disabled={cart.items.length === 0}
                   >
                     Proceed to Checkout

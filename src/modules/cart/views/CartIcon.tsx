@@ -35,7 +35,7 @@ export const CartIcon = () => {
             justifyContent: "center",
             fontSize: 10,
             fontWeight: 700,
-            backgroundColor: "var(--mantine-color-red-6)",
+            backgroundColor: "#d64545",
             border: "none",
             zIndex: 10,
           }}

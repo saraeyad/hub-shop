@@ -1,8 +1,7 @@
-import { Box, Button, Stack, Text, Title, Badge, Group } from "@mantine/core";
-import { Carousel } from "@mantine/carousel";
+import { Box, Button, Group, Stack, Text, Title, Image, TextInput, ActionIcon } from "@mantine/core";
 import { useNavigate } from "@tanstack/react-router";
-import { motion } from "framer-motion";
-import { IconArrowRight } from "@tabler/icons-react";
+import { IconArrowLeft, IconArrowRight, IconSearch, IconStarFilled } from "@tabler/icons-react";
+import { useState } from "react";
 import type { ProductsWithDiscountPrice } from "../modules/products/hooks/useGetAllProducts";
 
 type HeroBannerSliderProps = {
@@ -11,263 +10,126 @@ type HeroBannerSliderProps = {
 
 export const HeroBannerSlider = ({ products }: HeroBannerSliderProps) => {
   const navigate = useNavigate();
+  const featured = products.slice(0, 5);
+  const [index, setIndex] = useState(0);
+  const [query, setQuery] = useState("");
 
-  const handleSlideClick = (productId: number) => {
-    navigate({
-      to: "/products/$productId",
-      params: { productId: String(productId) },
-    });
+  if (featured.length === 0) return null;
+
+  const product = featured[index % featured.length];
+  const price = product.hasDiscounts && product.discountPercentage ? product.discountedPrice : product.price;
+
+  const go = (direction: number) => {
+    setIndex((current) => (current + direction + featured.length) % featured.length);
   };
 
-  const featuredProducts = products.slice(0, 5);
-
-  if (featuredProducts.length === 0) {
-    return null;
-  }
+  const search = (e: React.FormEvent) => {
+    e.preventDefault();
+    navigate({ to: "/products" });
+  };
 
   return (
-    <Box
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "600px",
-        overflow: "hidden",
-      }}
-    >
-      <Carousel
-        height="100%"
-        slideSize="100%"
-        withIndicators
-        withControls
-        controlSize={40}
-        styles={{
-          root: {
-            height: "100%",
-          },
-          viewport: {
-            height: "100%",
-          },
-          slide: {
-            height: "100%",
-          },
-          control: {
-            backgroundColor: "rgba(255, 255, 255, 0.9)",
-            border: "none",
-            color: "#000",
-            "&:hover": {
-              backgroundColor: "rgba(255, 255, 255, 1)",
-            },
-            "&[data-inactive]": {
-              opacity: 0,
-              cursor: "default",
-            },
-          },
-          indicators: {
-            bottom: 20,
-          },
-          indicator: {
-            width: 12,
-            height: 12,
-            backgroundColor: "rgba(255, 255, 255, 0.5)",
-            "&[data-active]": {
-              backgroundColor: "rgba(255, 255, 255, 1)",
-            },
-          },
-        }}
-      >
-        {featuredProducts.map((product, index) => (
-          <Carousel.Slide key={product.id}>
+    <Box py={{ base: 28, md: 56 }}>
+      <Box maw={1120} mx="auto" px="lg">
+        <Group align="center" justify="space-between" wrap="wrap" gap={40}>
+          <Stack gap="md" maw={520} style={{ flex: "1 1 320px" }}>
+            <Text fw={600} c="#4b9ad2" size="sm">
+              Featured product
+            </Text>
+            <Title order={1} style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", lineHeight: 1.15, color: "#286292" }}>
+              {product.name}
+            </Title>
+            <Text c="#575757" size="lg" lineClamp={3}>
+              {product.description}
+            </Text>
+            <Group gap="xs">
+              <IconStarFilled size={16} color="#f6c90e" />
+              <Text size="sm" c="#575757">
+                {product.rating.toFixed(1)} / 5 customer rating
+              </Text>
+            </Group>
+            <Group gap="sm" align="flex-end">
+              {product.hasDiscounts && product.discountPercentage ? (
+                <Text td="line-through" c="#89949d">
+                  ${product.price.toFixed(2)}
+                </Text>
+              ) : null}
+              <Text fw={700} size="xl" c="#286292">
+                ${price.toFixed(2)}
+              </Text>
+              {product.hasDiscounts && product.discountPercentage ? (
+                <Text size="sm" fw={700} px={8} py={2} style={{ background: "#f6c90e", borderRadius: 999, color: "#1f2428" }}>
+                  {product.discountPercentage}% off
+                </Text>
+              ) : null}
+            </Group>
+
+            <form onSubmit={search}>
+              <Group gap="xs" wrap="nowrap" align="center">
+                <TextInput
+                  placeholder="Search products"
+                  value={query}
+                  onChange={(e) => setQuery(e.currentTarget.value)}
+                  leftSection={<IconSearch size={16} />}
+                  radius="xl"
+                  style={{ flex: 1 }}
+                />
+                <Button type="submit" radius="xl" color="brand">
+                  Search
+                </Button>
+              </Group>
+            </form>
+
+            <Group gap="sm">
+              <Button
+                radius="md"
+                color="brand"
+                rightSection={<IconArrowRight size={18} />}
+                onClick={() =>
+                  navigate({
+                    to: "/products/$productId",
+                    params: { productId: String(product.id) },
+                  })
+                }
+              >
+                Shop now
+              </Button>
+              <Button radius="md" variant="outline" color="brand" onClick={() => navigate({ to: "/products" })}>
+                View all products
+              </Button>
+            </Group>
+          </Stack>
+
+          <Stack align="center" gap="md" style={{ flex: "1 1 280px" }}>
             <Box
               style={{
-                position: "relative",
                 width: "100%",
-                height: "100%",
-                cursor: "pointer",
-                backgroundImage: `url(${product.image})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
+                maxWidth: 460,
+                minHeight: 360,
+                background: "#ffffff",
+                borderRadius: 28,
+                border: "1px solid #d7e6f2",
+                display: "grid",
+                placeItems: "center",
+                padding: 24,
               }}
-            //   onClick={() => handleSlideClick(product.id)}
             >
-              <Box
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: "linear-gradient(135deg, rgba(45, 36, 24, 0.85) 0%, rgba(107, 111, 71, 0.6) 50%, rgba(45, 36, 24, 0.8) 100%)",
-                }}
-              />
-
-              <Stack
-                gap="lg"
-                style={{
-                  position: "relative",
-                  height: "100%",
-                  padding: "80px 60px",
-                  justifyContent: "center",
-                  maxWidth: "900px",
-                  zIndex: 1,
-                }}
-              >
-                {product.hasDiscounts && product.discountPercentage && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                  >
-                    <Badge
-                      size="xl"
-                      color="gold"
-                      variant="filled"
-                      style={{ width: "fit-content", fontSize: "14px", padding: "8px 16px", color: "#2e2418", fontWeight: 600 }}
-                    >
-                      {product.discountPercentage}% OFF - LIMITED TIME
-                    </Badge>
-                  </motion.div>
-                )}
-
-                <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.3 + index * 0.1 }}
-                >
-                  <Badge
-                    color="brown"
-                    size="lg"
-                    variant="light"
-                    style={{ width: "fit-content", marginBottom: 8, backgroundColor: "rgba(255, 255, 255, 0.2)", color: "#ffffff" }}
-                  >
-                    Featured Product
-                  </Badge>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
-                >
-                  <Title
-                    order={1}
-                    c="white"
-                    size="4.5rem"
-                    fw={900}
-                    style={{ lineHeight: 1.2, textShadow: "2px 2px 4px rgba(0,0,0,0.5)" }}
-                  >
-                    {product.name}
-                  </Title>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.5 + index * 0.1 }}
-                >
-                  <Text
-                    size="xl"
-                    c="gray.2"
-                    style={{
-                      maxWidth: "700px",
-                      lineHeight: 1.6,
-                      textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
-                    }}
-                    lineClamp={3}
-                  >
-                    {product.description}
-                  </Text>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
-                >
-                  <Group gap="md" align="center">
-                    {product.hasDiscounts && product.discountPercentage ? (
-                      <>
-                        <Text size="2rem" c="gray.3" td="line-through" fw={500} style={{ opacity: 0.7 }}>
-                          ${product.price.toFixed(2)}
-                        </Text>
-                        <Text size="3rem" c="gold.5" fw={700} style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.3)", letterSpacing: "0.02em" }}>
-                          ${product.discountedPrice.toFixed(2)}
-                        </Text>
-                      </>
-                    ) : (
-                      <Text size="3rem" c="gold.5" fw={700} style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.3)", letterSpacing: "0.02em" }}>
-                        ${product.price.toFixed(2)}
-                      </Text>
-                    )}
-                  </Group>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.9 + index * 0.1 }}
-                >
-                  <Group gap="md">
-                    <Button
-                      size="lg"
-                      variant="filled"
-                      color="brown"
-                      rightSection={<IconArrowRight size={20} />}
-                      style={{
-                        fontSize: "14px",
-                        padding: "16px 36px",
-                        fontWeight: 600,
-                        letterSpacing: "0.1em",
-                        textTransform: "uppercase",
-                        backgroundColor: "#8b6f47",
-                        "&:hover": {
-                          backgroundColor: "#6d5638",
-                        },
-                      }}
-                      component={motion.div}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleSlideClick(product.id);
-                      }}
-                    >
-                      Shop Now
-                    </Button>
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      color="brown"
-                      style={{
-                        fontSize: "14px",
-                        padding: "16px 36px",
-                        borderWidth: 2,
-                        borderColor: "#ffffff",
-                        color: "#ffffff",
-                        letterSpacing: "0.1em",
-                        textTransform: "uppercase",
-                        fontWeight: 600,
-                        "&:hover": {
-                          backgroundColor: "rgba(255, 255, 255, 0.1)",
-                        },
-                      }}
-                      component={motion.div}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        navigate({ to: "/products" });
-                      }}
-                    >
-                      View All Products
-                    </Button>
-                  </Group>
-                </motion.div>
-              </Stack>
+              <Image src={product.image} alt={product.name} mah={320} fit="contain" />
             </Box>
-          </Carousel.Slide>
-        ))}
-      </Carousel>
+            <Group gap="md">
+              <ActionIcon variant="outline" color="brand" radius="xl" size="lg" onClick={() => go(-1)} aria-label="Previous product">
+                <IconArrowLeft size={18} />
+              </ActionIcon>
+              <Text size="sm" c="#89949d">
+                {String(index + 1).padStart(2, "0")} / {String(featured.length).padStart(2, "0")}
+              </Text>
+              <ActionIcon variant="outline" color="brand" radius="xl" size="lg" onClick={() => go(1)} aria-label="Next product">
+                <IconArrowRight size={18} />
+              </ActionIcon>
+            </Group>
+          </Stack>
+        </Group>
+      </Box>
     </Box>
   );
 };

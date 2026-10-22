@@ -73,7 +73,7 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
             <Text size="sm" c="dimmed" td="line-through">
               ${product.price.toFixed(2)}
             </Text>
-            <Text size="xl" fw={700} c="gold.5">
+            <Text size="xl" fw={700} c="brand.8">
               ${product.discountedPrice.toFixed(2)}
             </Text>
           </Box>
@@ -83,7 +83,7 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
           </Text>
         )}
 
-        <Button color="brown" fullWidth radius="md" mb={'5'}>
+        <Button color="brand" fullWidth radius="md" mb={'5'}>
           Add to Cart
         </Button>
         <Button 
@@ -100,7 +100,7 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
         >
           Delete
         </Button>
-        {error && <Text c="brown" size="sm" mt="xs">{error.message}</Text>}
+        {error && <Text c="brand.8" size="sm" mt="xs">{error.message}</Text>}
       </Box>
     </Card>
   );

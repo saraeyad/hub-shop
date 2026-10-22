@@ -1,8 +1,10 @@
-import { Stack, Box, Center, Loader } from "@mantine/core";
+import { Stack, Box, Center, Loader, Group, Text, Button } from "@mantine/core";
+import { Link } from "@tanstack/react-router";
 import { HeroBannerSlider } from "./HeroBannerSlider";
 import { TrustFactors } from "./TrustFactors";
 import { ProductSlider } from "./ProductSlider";
 import { FlashSaleCountdown } from "./FlashSaleCountdown";
+import { Categories } from "../modules/categories/views";
 import { useGetAllProducts, type ProductsWithDiscountPrice } from "../modules/products/hooks/useGetAllProducts";
 
 export const HomePage = () => {
@@ -14,18 +16,10 @@ export const HomePage = () => {
     return endTime;
   })();
 
-  if (isLoading || !products) {
+  if (isLoading || !products || products.length === 0) {
     return (
       <Center h={400}>
-        <Loader size="lg" />
-      </Center>
-    );
-  }
-
-  if (products.length === 0) {
-    return (
-      <Center h={400}>
-        <Loader size="lg" />
+        <Loader size="lg" color="brand" />
       </Center>
     );
   }
@@ -53,53 +47,58 @@ export const HomePage = () => {
     <Stack gap={0}>
       <HeroBannerSlider products={featuredProducts.length > 0 ? featuredProducts : products.slice(0, 5)} />
 
-      <TrustFactors />
+      <Categories />
 
-      <Box
-        style={{
-          background: "var(--mantine-color-brown-7)",
-        }}
-      >
+      <Box style={{ background: "var(--band)" }}>
         <ProductSlider
-          title="New Arrivals"
+          title="New arrivals"
+          subtitle="Just in, ready to browse."
           products={newArrivals}
-          showNewBadge={true}
-          viewAllLink="/products"
+          showNewBadge
         />
       </Box>
 
-      <Box
-        style={{
-          background: "white",
-        }}
-      >
-        <ProductSlider
-          title="Best Sellers"
-          products={bestSellers}
-          viewAllLink="/products"
-          titleColor="brown.7"
-        />
-      </Box>
+      <ProductSlider
+        title="Best sellers"
+        subtitle="The highest rated picks from the catalog."
+        products={bestSellers}
+      />
 
       {flashSaleProducts.length > 0 && (
-        <Box
-          style={{
-            background: "var(--mantine-color-brown-7)",
-          }}
-        >
-          <Stack gap="md" style={{ paddingTop: "40px" }}>
-            <Box style={{ textAlign: "center" }} >
-              <FlashSaleCountdown endTime={flashSaleEndTime} />
-            </Box>
-            <ProductSlider
-              title="Flash Sale"
-              products={flashSaleProducts}
-              showViewAll={false}
-              showCountdown={false}
-            />
+        <Box style={{ background: "#e4effa" }} py={8}>
+          <Stack gap="md" pt={28}>
+            <FlashSaleCountdown endTime={flashSaleEndTime} />
+            <ProductSlider title="Flash sale" products={flashSaleProducts} showViewAll={false} />
           </Stack>
         </Box>
       )}
+
+      <TrustFactors />
+
+      <Box px="lg" pb={72}>
+        <Group
+          justify="space-between"
+          align="center"
+          maw={1120}
+          mx="auto"
+          p={{ base: "lg", md: 36 }}
+          wrap="wrap"
+          gap="lg"
+          style={{ background: "#ffffff", borderRadius: 24, border: "1px solid #d7e6f2" }}
+        >
+          <Stack gap={6} maw={640}>
+            <Text fw={700} size="xl" c="#286292">
+              Ready to look through the catalog?
+            </Text>
+            <Text c="#575757">
+              Discounts, ratings, and a cart that stays on this device.
+            </Text>
+          </Stack>
+          <Button component={Link} to="/products" size="md" radius="md" color="brand">
+            Shop the catalog
+          </Button>
+        </Group>
+      </Box>
     </Stack>
   );
 };

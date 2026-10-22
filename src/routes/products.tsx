@@ -54,7 +54,7 @@ function ProductsPage() {
     >
       <Box
         style={{
-          background: 'linear-gradient(135deg, #8b6f47 0%, #6d5638 100%)',
+          background: "transparent",
           minHeight: '100vh',
           padding: '40px 0 60px',
         }}
@@ -68,11 +68,11 @@ function ProductsPage() {
             <Breadcrumbs
               separator={
                 <>
-                  <Text span c="white" style={{ opacity: 0.6, marginRight: '2px' }}>..</Text>
+                  <Text span c="#89949d" style={{ marginRight: '2px' }}>..</Text>
                   <IconChevronRight 
                     size={16} 
                     style={{ 
-                      color: 'rgba(255, 255, 255, 0.6)',
+                      color: '#89949d',
                       margin: '0 4px'
                     }} 
                   />
@@ -82,7 +82,7 @@ function ProductsPage() {
               <Anchor
                 component={Link}
                 to="/"
-                c="white"
+                c="#286292"
                 size="sm"
                 style={{
                   textDecoration: 'none',
@@ -99,7 +99,7 @@ function ProductsPage() {
               <Anchor
                 component={Link}
                 to="/products"
-                c="white"
+                c="#286292"
                 size="sm"
                 style={{
                   textDecoration: 'none',
@@ -112,7 +112,7 @@ function ProductsPage() {
               </Anchor>
               {category && (
                 <Text 
-                  c="white" 
+                  c="#286292" 
                   size="sm"
                   fw={600}
                   style={{
@@ -128,7 +128,7 @@ function ProductsPage() {
 
         {error ? (
           <Center h={300}>
-            <Text size="lg" c="gray.2">
+            <Text size="lg" c="#575757">
               Failed to load products. Please try again.
             </Text>
           </Center>
@@ -138,7 +138,7 @@ function ProductsPage() {
           </Center>
         ) : isEmpty ? (
           <Center h={300}>
-            <Text size="lg" c="gray.2">
+            <Text size="lg" c="#575757">
               No products found{category ? ' in this category' : ''}.
             </Text>
           </Center>

@@ -1,12 +1,20 @@
-import { AppShell, Group, Title, Container, Button, Popover, Box, TextInput, ActionIcon, Image } from "@mantine/core";
+import { AppShell, Group, Text, Container, Button, Popover, Box, TextInput, ActionIcon } from "@mantine/core";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { CartIcon } from "../../modules/cart/views";
 import { FavoritesIcon } from "../../modules/favorites/views/FavoritesIcon";
 import { useGetAllCategories } from "../../modules/categories/hooks/useGetAllCategories";
-import { IconChevronDown, IconSearch, IconUser } from "@tabler/icons-react";
+import { IconChevronDown, IconSearch } from "@tabler/icons-react";
 import { useState } from "react";
-import { headerAnimations, buttonAnimations } from "../../animations/animations";
+
+const navLinkStyle = (active: boolean) => ({
+  color: active ? "#286292" : "#575757",
+  fontWeight: active ? 700 : 500,
+  fontSize: "0.95rem",
+  background: "transparent",
+  borderBottom: active ? "2px solid #4b9ad2" : "2px solid transparent",
+  borderRadius: 0,
+  paddingInline: 8,
+});
 
 export const Header = () => {
   const location = useLocation();
@@ -26,116 +34,87 @@ export const Header = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate({
-        to: "/products",
-      });
+      navigate({ to: "/products" });
     }
   };
 
-  return (
-    <motion.div
-      initial={headerAnimations.initial}
-      animate={headerAnimations.animate}
-      transition={headerAnimations.transition}
-    >
-      <AppShell.Header 
-        style={{ 
-          borderBottom: "1px solid #e0d4c4",
-          backgroundColor: "#ffffff",
-          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.05)",
-        }}
-      >
-        <Container size="lg" h="100%">
-          <Group justify="space-between" align="center" h="100%" gap="xl">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Link to="/" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center", gap: "8px" }}>
-                <Image src="/logo.svg" alt="ShopHub Logo" h={40} w="auto" fit="contain" />
-                <Title order={2} fw={600} c="brown.7" style={{ letterSpacing: "0.05em", fontFamily: '"Playfair Display", serif' }}>
-                  ShopHub
-                </Title>
-              </Link>
-            </motion.div>
+  const homeActive = location.pathname === "/";
+  const productsActive = location.pathname.startsWith("/products");
 
-          <Group gap="md" visibleFrom="md" style={{ flex: 1, maxWidth: 600 }}>
-            <motion.div
-              whileHover={buttonAnimations.hover}
-              whileTap={buttonAnimations.tap}
+  return (
+    <AppShell.Header
+      style={{
+        background: "transparent",
+        border: "none",
+        boxShadow: "none",
+      }}
+    >
+      <Container size="lg" h="100%" pt={16}>
+        <Group
+          justify="space-between"
+          align="center"
+          h={64}
+          px="lg"
+          wrap="nowrap"
+          style={{
+            background: "#ffffff",
+            borderRadius: 999,
+            border: "1px solid #d7e6f2",
+            boxShadow: "0 8px 24px rgba(40, 98, 146, 0.08)",
+          }}
+        >
+          <Link to="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+            <Box
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: 10,
+                background: "#4b9ad2",
+                color: "#fff",
+                display: "grid",
+                placeItems: "center",
+                fontWeight: 700,
+              }}
             >
-              <Button
-                component={Link}
-                to="/"
-                variant={location.pathname === "/" ? "filled" : "subtle"}
-                radius="sm"
-                color="brown"
-                style={{ 
-                  fontWeight: 500,
-                  letterSpacing: "0.05em",
-                  textTransform: "uppercase",
-                  fontSize: "0.75rem",
-                }}
-              >
-                Home
-              </Button>
-            </motion.div>
-            <motion.div
-              whileHover={buttonAnimations.hover}
-              whileTap={buttonAnimations.tap}
-            >
-              <Button
-                component={Link}
-                to="/products"
-                variant={location.pathname === "/products" ? "filled" : "subtle"}
-                radius="sm"
-                color="brown"
-                style={{ 
-                  fontWeight: 500,
-                  letterSpacing: "0.05em",
-                  textTransform: "uppercase",
-                  fontSize: "0.75rem",
-                }}
-              >
-                Products
-              </Button>
-            </motion.div>
-            
-            <Popover
-              width={600}
-              position="bottom"
-              withArrow
-              shadow="md"
-              opened={opened}
-              onChange={setOpened}
-            >
+              S
+            </Box>
+            <Text fw={700} c="#286292" size="lg">
+              ShopHub
+            </Text>
+          </Link>
+
+          <Group gap="sm" visibleFrom="md" wrap="nowrap">
+            <Button component={Link} to="/" variant="subtle" style={navLinkStyle(homeActive)}>
+              Home
+            </Button>
+            <Button component={Link} to="/products" variant="subtle" style={navLinkStyle(productsActive)}>
+              Products
+            </Button>
+            <Popover width={560} position="bottom" shadow="md" opened={opened} onChange={setOpened}>
               <Popover.Target>
                 <Button
                   variant="subtle"
-                  radius="md"
                   rightSection={<IconChevronDown size={16} />}
+                  style={navLinkStyle(false)}
                   onMouseEnter={() => setOpened(true)}
                   onMouseLeave={() => setOpened(false)}
                 >
                   Categories
                 </Button>
               </Popover.Target>
-              <Popover.Dropdown
-                onMouseEnter={() => setOpened(true)}
-                onMouseLeave={() => setOpened(false)}
-              >
+              <Popover.Dropdown onMouseEnter={() => setOpened(true)} onMouseLeave={() => setOpened(false)}>
                 {isLoading ? (
                   <Box p="sm">Loading...</Box>
                 ) : (
-                  <Group gap="md" wrap="wrap">
+                  <Group gap="xs" wrap="wrap">
                     {categories.map((category) => (
                       <Button
                         key={category.slug}
-                        variant="subtle"
-                        size="sm"
+                        variant="light"
+                        color="brand"
+                        size="xs"
+                        radius="xl"
                         onClick={() => handleCategoryClick(category.slug)}
-                        style={{ whiteSpace: "wrap" }}
                       >
                         {category.name}
                       </Button>
@@ -144,26 +123,27 @@ export const Header = () => {
                 )}
               </Popover.Dropdown>
             </Popover>
-
-            <form onSubmit={handleSearch} style={{ flex: 1, maxWidth: 300 }}>
-              <TextInput
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.currentTarget.value)}
-                leftSection={<IconSearch size={18} />}
-                rightSection={
-                  <ActionIcon type="submit" variant="subtle">
-                    <IconSearch size={18} />
-                  </ActionIcon>
-                }
-                style={{ width: "100%" }}
-              />
-            </form>
           </Group>
 
-          <Group gap="sm" style={{ overflow: "visible" }}>
-            <ActionIcon variant="subtle" size="lg" radius="xl">
-              <IconUser size={20} />
+          <Group gap="xs" wrap="nowrap" style={{ flexShrink: 0 }}>
+            <Box component="form" onSubmit={handleSearch} w={220} visibleFrom="sm">
+              <TextInput
+                placeholder="Search products"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.currentTarget.value)}
+                leftSection={<IconSearch size={16} />}
+                size="sm"
+              />
+            </Box>
+            <ActionIcon
+              variant="subtle"
+              size="lg"
+              radius="xl"
+              aria-label="Search"
+              hiddenFrom="sm"
+              onClick={() => navigate({ to: "/products" })}
+            >
+              <IconSearch size={18} color="#286292" />
             </ActionIcon>
             <FavoritesIcon />
             <CartIcon />
@@ -171,6 +151,5 @@ export const Header = () => {
         </Group>
       </Container>
     </AppShell.Header>
-    </motion.div>
   );
 };

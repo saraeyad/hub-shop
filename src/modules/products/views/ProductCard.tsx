@@ -1,8 +1,6 @@
-import { Card, Image, Text, Badge, Group, Button, ActionIcon, Stack } from "@mantine/core";
+import { Card, Image, Text, Badge, Group, Button, ActionIcon, Stack, Box } from "@mantine/core";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { motion } from "framer-motion";
-import { IconHeart, IconShoppingCart, IconEye } from "@tabler/icons-react";
-import { useState } from "react";
+import { IconHeart, IconStarFilled } from "@tabler/icons-react";
 import type { ProductsWithDiscountPrice } from "../hooks/useGetAllProducts";
 import { useCart } from "../../cart/hooks/useCart";
 import { useFavorites } from "../../favorites/hooks/useFavorites";
@@ -14,14 +12,14 @@ type ProductCardProps = {
 };
 
 export const ProductCard = ({ product, showNewBadge = false }: ProductCardProps) => {
-  const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
   const { addItem } = useCart();
   const { addItem: addFavorite, removeItem: removeFavorite, isFavorite: checkFavorite } = useFavorites();
   const hasDiscount = product.hasDiscounts && product.discountPercentage;
   const isFavorite = checkFavorite(product.id);
+  const price = hasDiscount ? product.discountedPrice : product.price;
 
-  const handleAddToCart = async (e: React.MouseEvent) => {
+  const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     try {
@@ -33,7 +31,7 @@ export const ProductCard = ({ product, showNewBadge = false }: ProductCardProps)
         image: product.image,
         discountPercentage: product.discountPercentage,
       });
-      toast.success(`${product.name} added to cart!`);
+      toast.success(`${product.name} added to cart`);
     } catch {
       toast.error("Failed to add to cart");
     }
@@ -58,201 +56,99 @@ export const ProductCard = ({ product, showNewBadge = false }: ProductCardProps)
     }
   };
 
-  const handleViewProduct = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    navigate({
-      to: "/products/$productId",
-      params: { productId: String(product.id) },
-    });
-  };
-
   return (
     <Card
-      shadow="none"
-      padding={0}
-      radius="sm"
-      withBorder={false}
+      padding="md"
+      radius="lg"
+      withBorder
       style={{
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        position: "relative",
-        overflow: "hidden",
-        background: "transparent",
-        border: "0.5px solid rgba(224, 212, 196, 0.8)",
-        borderRadius: 8,
-        cursor: "pointer",
+        background: "#ffffff",
+        borderColor: "#d7e6f2",
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      component={motion.div}
-      whileHover={{ y: -8 }}
-      transition={{ duration: 0.3 }}
     >
-      <Card.Section
-        pos="relative"
-        style={{
-          overflow: "hidden",
-          height: "400px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "#faf8f6",
-        }}
-      >
+      <Card.Section>
+        <Box pos="relative" h={210} bg="#f5f6f8">
+          <Link
+            to="/products/$productId"
+            params={{ productId: String(product.id) }}
+            style={{ display: "grid", placeItems: "center", height: "100%", padding: 16 }}
+          >
+            <Image src={product.image} alt={product.name} mah={170} fit="contain" />
+          </Link>
+          <Group pos="absolute" top={12} left={12} gap={6}>
+            {showNewBadge && (
+              <Badge color="brand" variant="filled" radius="xl">
+                New
+              </Badge>
+            )}
+            {hasDiscount && (
+              <Badge radius="xl" style={{ background: "#f6c90e", color: "#1f2428" }}>
+                {product.discountPercentage}% off
+              </Badge>
+            )}
+          </Group>
+          <ActionIcon
+            variant={isFavorite ? "filled" : "white"}
+            color={isFavorite ? "red" : "brand"}
+            radius="xl"
+            onClick={handleFavorite}
+            aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+            style={{ position: "absolute", top: 12, right: 12 }}
+          >
+            <IconHeart size={16} fill={isFavorite ? "currentColor" : "none"} />
+          </ActionIcon>
+        </Box>
+      </Card.Section>
+
+      <Stack gap={6} mt="md" style={{ flex: 1 }}>
         <Link
           to="/products/$productId"
           params={{ productId: String(product.id) }}
-          style={{ textDecoration: "none", display: "block", width: "100%", height: "100%" }}
+          style={{ textDecoration: "none" }}
         >
-          <motion.div
-            animate={{
-              scale: isHovered ? 1.1 : 1,
-              filter: isHovered ? "brightness(0.7)" : "brightness(1)",
-            }}
-            transition={{ duration: 0.3 }}
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "20px",
-            }}
-          >
-            <Image
-              src={product.image}
-              alt={product.name}
-              fit="contain"
-              style={{
-                maxHeight: "100%",
-                maxWidth: "100%",
-                filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.2))",
-              }}
-            />
-          </motion.div>
+          <Text fw={700} c="#286292" lineClamp={2}>
+            {product.name}
+          </Text>
         </Link>
-
-        <Group
-          pos="absolute"
-          top={12}
-          left={12}
-          gap="xs"
-          style={{ zIndex: 2 }}
-        >
-          {showNewBadge && (
-            <Badge color="gold" size="md" variant="filled">
-              NEW
-            </Badge>
-          )}
-          {hasDiscount && (
-            <Badge color="gold" size="md" variant="filled">
-              {product.discountPercentage}% OFF
-            </Badge>
-          )}
+        <Group gap={4}>
+          <IconStarFilled size={14} color="#f6c90e" />
+          <Text size="sm" fw={700} c="#1f2428">
+            {product.rating.toFixed(1)}
+          </Text>
         </Group>
-
-        <ActionIcon
-          variant={isFavorite ? "filled" : "light"}
-          color={isFavorite ? "red" : "brown"}
-          size="md"
-          radius="xl"
-          onClick={handleFavorite}
-          style={{
-            position: "absolute",
-            top: 12,
-            right: 12,
-            zIndex: 2,
-          }}
-        >
-          <IconHeart size={18} fill={isFavorite ? "currentColor" : "none"} />
-        </ActionIcon>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{
-            opacity: isHovered ? 1 : 0,
-            y: isHovered ? 0 : 20,
-          }}
-          transition={{ duration: 0.3 }}
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            padding: "20px",
-            background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 50%, transparent 100%)",
-            zIndex: 3,
-          }}
-        >
-          <Stack gap="sm">
-            <Text
-              fw={600}
-              size="lg"
-              c="white"
-              lineClamp={2}
-              style={{
-                textShadow: "0 2px 4px rgba(0,0,0,0.5)",
-              }}
-            >
-              {product.name}
+        <Group gap={8} align="baseline">
+          {hasDiscount ? (
+            <Text size="sm" c="#89949d" td="line-through">
+              ${product.price.toFixed(2)}
             </Text>
+          ) : null}
+          <Text fw={700} c="#286292">
+            ${price.toFixed(2)}
+          </Text>
+        </Group>
+      </Stack>
 
-            <Group gap="xs" align="center">
-              {hasDiscount ? (
-                <>
-                  <Text size="sm" c="gray.3" td="line-through">
-                    ${product.price.toFixed(2)}
-                  </Text>
-                  <Text size="xl" fw={700} c="gold.5">
-                    ${product.discountedPrice.toFixed(2)}
-                  </Text>
-                </>
-              ) : (
-                <Text size="xl" fw={700} c="gold.5">
-                  ${product.price.toFixed(2)}
-                </Text>
-              )}
-            </Group>
-
-            <Group gap="xs" mt="xs">
-              <Button
-                variant="outline"
-                color="white"
-                size="sm"
-                fullWidth
-                onClick={handleViewProduct}
-                leftSection={<IconEye size={16} />}
-                style={{
-                  letterSpacing: "0.05em",
-                  textTransform: "uppercase",
-                  borderColor: "rgba(255,255,255,0.5)",
-                  color: "white",
-                }}
-              >
-                View Details
-              </Button>
-              <Button
-                variant="filled"
-                color="brown"
-                size="sm"
-                fullWidth
-                onClick={handleAddToCart}
-                leftSection={<IconShoppingCart size={16} />}
-                disabled={!product.isAvailable}
-                style={{
-                  letterSpacing: "0.05em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Add to Cart
-              </Button>
-            </Group>
-          </Stack>
-        </motion.div>
-      </Card.Section>
+      <Group gap="xs" mt="md" grow>
+        <Button
+          variant="outline"
+          color="brand"
+          size="xs"
+          onClick={() =>
+            navigate({
+              to: "/products/$productId",
+              params: { productId: String(product.id) },
+            })
+          }
+        >
+          Details
+        </Button>
+        <Button color="brand" size="xs" onClick={handleAddToCart} disabled={!product.isAvailable}>
+          Add to cart
+        </Button>
+      </Group>
     </Card>
   );
 };
-

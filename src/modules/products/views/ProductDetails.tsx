@@ -55,7 +55,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
     >
       <Box
         style={{
-          background: "linear-gradient(135deg, #8b6f47 0%, #6d5638 100%)",
+          background: "transparent",
           padding: "40px 0 60px",
           minHeight: "100vh",
         }}
@@ -99,12 +99,12 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
               </motion.div>
 
             {/* Product Name */}
-            <Title order={1} c="white">{product.name}</Title>
+            <Title order={1}>{product.name}</Title>
 
             {/* Rating */}
             <Group gap="xs">
               <Rating value={product.rating} readOnly size="sm" />
-              <Text size="sm" c="gray.2">
+              <Text size="sm" c="#575757">
                 ({product.rating} / 5)
               </Text>
             </Group>
@@ -113,10 +113,10 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
             <Box>
               {hasDiscount ? (
                 <Group gap="md" align="center">
-                  <Text size="xl" c="gray.3" td="line-through">
+                  <Text size="xl" c="#89949d" td="line-through">
                     ${product.price.toFixed(2)}
                   </Text>
-                  <Text size="2rem" fw={700} c="gold.5">
+                  <Text size="2rem" fw={700} c="brand.8">
                     ${discountedPrice.toFixed(2)}
                   </Text>
                   <Badge color="gold" size="lg">
@@ -124,7 +124,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
                   </Badge>
                 </Group>
               ) : (
-                <Text size="2rem" fw={700} c="gold.5">
+                <Text size="2rem" fw={700} c="brand.8">
                   ${product.price.toFixed(2)}
                 </Text>
               )}
@@ -137,7 +137,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
                   In Stock
                 </Badge>
               ) : (
-                <Badge color="brown" size="lg">
+                <Badge color="brand" size="lg">
                   Out of Stock
                 </Badge>
               )}
@@ -147,16 +147,16 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
 
             {/* Description */}
             <Box>
-              <Title order={3} mb="sm" c="white">
+              <Title order={3} mb="sm">
                 Description
               </Title>
-              <Text size="md" c="gray.2">{product.description}</Text>
+              <Text size="md" c="#575757">{product.description}</Text>
             </Box>
 
             {/* Tags */}
             {product.tags && product.tags.length > 0 && (
               <Box>
-                <Title order={3} mb="sm" c="white">
+                <Title order={3} mb="sm">
                   Tags
                 </Title>
                 <Group gap="xs">
@@ -176,7 +176,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
                 whileTap={buttonAnimations.tap}
               >
                 <Button 
-                  color="brown" 
+                  color="brand" 
                   size="lg" 
                   disabled={!product.isAvailable}
                   onClick={handleAddToCart}
@@ -188,7 +188,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
                 whileHover={buttonAnimations.hover}
                 whileTap={buttonAnimations.tap}
               >
-                <Button component={Link} to="/products" variant="light" size="lg" color="white">
+                <Button component={Link} to="/products" variant="outline" size="lg" color="brand">
                   Back to Products
                 </Button>
               </motion.div>
@@ -215,7 +215,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
-              <Title order={2} mb="xl" c="white" style={{ textAlign: 'center' }}>
+              <Title order={2} mb="xl" style={{ textAlign: 'center' }}>
                 Customer Reviews ({product.reviews.length})
               </Title>
             </motion.div>
@@ -235,13 +235,13 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
                     withBorder
                     radius="md"
                     style={{
-                      backgroundColor: '#faf8f6',
-                      borderColor: 'rgba(224, 212, 196, 0.5)',
+                      backgroundColor: '#ffffff',
+                      borderColor: "#d7e6f2",
                     }}
                   >
                   <Group justify="space-between" mb="sm">
                     <Group gap="sm">
-                      <Text fw={600} size="md" c="brown.7">
+                      <Text fw={600} size="md" c="brand.8">
                         {review.reviewer.name}
                       </Text>
                       <Rating value={review.rating} readOnly size="sm" />

@@ -24,7 +24,7 @@ function ProductDetailsPage() {
     return (
       <Container py="xl">
         <Center>
-          <Text c="brown" size="lg">
+          <Text c="brand.8" size="lg">
             {error.message || 'Failed to load product'}
           </Text>
         </Center>

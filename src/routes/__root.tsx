@@ -14,32 +14,38 @@ import { FavoritesProvider } from '../modules/favorites/index'
 import { CheckoutProvider } from '../modules/checkout/index'
 import { Layout } from '../components/Layout'
 
-const brown: MantineColorsTuple = ['#faf8f6', '#f5f1ec', '#ede5db', '#e0d4c4', '#c9b8a3', '#a68b6f', '#8b6f47', '#6d5638', '#4d3d28', '#2e2418']
-const gold: MantineColorsTuple = ['#fffbf0', '#fff8e1', '#ffecb3', '#ffe082', '#ffd54f', '#ffc107', '#ffb300', '#ffa000', '#ff8f00', '#ff6f00']
-const gray: MantineColorsTuple = ['#fafafa', '#f5f5f5', '#eeeeee', '#e0e0e0', '#bdbdbd', '#9e9e9e', '#757575', '#616161', '#424242', '#212121']
+const brand: MantineColorsTuple = ['#f4f9fd', '#eaf3fb', '#e4effa', '#cfe3f3', '#9cc9ea', '#6aafdc', '#4b9ad2', '#3a78a3', '#286292', '#1d4d73']
+const gold: MantineColorsTuple = ['#fffbeb', '#fff4c2', '#ffe98a', '#fcdc4d', '#f8d12a', '#f6c90e', '#e0b400', '#c49c00', '#9a7a00', '#6d5600']
+const gray: MantineColorsTuple = ['#f7f8fa', '#f5f6f8', '#e8edf2', '#d5dee6', '#b7c3ce', '#89949d', '#6b767e', '#575757', '#414141', '#1f2428']
 
 const theme = createTheme({
-  primaryColor: 'brown',
+  primaryColor: 'brand',
   primaryShade: 6,
-  colors: { brown, gold, gray },
-  fontFamily: '"Playfair Display", "Cormorant Garamond", "Georgia", serif',
+  colors: { brand, gold, gray },
+  fontFamily: '"Cairo", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   headings: {
-    fontFamily: '"Playfair Display", "Cormorant Garamond", "Georgia", serif',
-    fontWeight: '600',
+    fontFamily: '"Cairo", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    fontWeight: '700',
   },
-  defaultRadius: 'sm',
+  defaultRadius: 'md',
   components: {
+    Title: {
+      styles: { root: { color: '#286292' } },
+    },
     Button: {
-      defaultProps: { radius: 'sm', color: 'brown' },
-      styles: { root: { fontWeight: 500, letterSpacing: '0.025em', textTransform: 'uppercase', fontSize: '0.875rem' } },
+      defaultProps: { radius: 'md', color: 'brand' },
+      styles: { root: { fontWeight: 600, fontSize: '0.9rem' } },
     },
     Card: {
-      defaultProps: { radius: 'sm', shadow: 'sm', withBorder: true },
-      styles: { root: { borderColor: '#e0d4c4', backgroundColor: '#ffffff' } },
+      defaultProps: { radius: 'lg', shadow: 'xs', withBorder: true },
+      styles: { root: { borderColor: '#d7e6f2', backgroundColor: '#ffffff' } },
     },
     Input: {
-      defaultProps: { radius: 'sm' },
-      styles: { input: { borderColor: '#e0d4c4', backgroundColor: '#fafafa', '&:focus': { borderColor: '#8b6f47' } } },
+      defaultProps: { radius: 'xl' },
+      styles: { input: { borderColor: '#cfe3f3', backgroundColor: '#ffffff', '&:focus': { borderColor: '#4b9ad2' } } },
+    },
+    TextInput: {
+      defaultProps: { radius: 'xl' },
     },
   },
 })

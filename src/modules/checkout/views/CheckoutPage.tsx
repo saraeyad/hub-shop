@@ -107,13 +107,13 @@ export const CheckoutPage = () => {
   return (
     <Box
       style={{
-        background: "linear-gradient(135deg, #8b6f47 0%, #6d5638 100%)",
+        background: "transparent",
         padding: "40px 0 60px",
         minHeight: "100vh",
       }}
     >
       <Container size="lg">
-        <Title order={1} mb="xl" c="white">
+        <Title order={1} mb="xl" c="#286292">
           Checkout
         </Title>
 
@@ -217,7 +217,7 @@ export const CheckoutPage = () => {
             </Grid.Col>
 
             <Grid.Col span={{ base: 12, md: 5 }}>
-              <Paper p="xl" radius="md" withBorder shadow="sm" style={{ position: "sticky", top: 80, backgroundColor: "#faf8f6" }}>
+              <Paper p="xl" radius="md" withBorder shadow="sm" style={{ position: "sticky", top: 80, backgroundColor: "#ffffff" }}>
                 <Stack gap="md">
                   <Title order={3} mb="xs">
                     Order Summary
@@ -256,7 +256,7 @@ export const CheckoutPage = () => {
                                   </Badge>
                                 )}
                               </Group>
-                              <Text size="sm" fw={600} c="gold.5" mt={4}>
+                              <Text size="sm" fw={600} c="brand.8" mt={4}>
                                 ${itemTotal.toFixed(2)}
                               </Text>
                             </Box>
@@ -301,7 +301,7 @@ export const CheckoutPage = () => {
                     <Text size="lg" fw={700}>
                       Total
                     </Text>
-                    <Text size="xl" fw={700} c="gold.5">
+                    <Text size="xl" fw={700} c="brand.8">
                       ${cart.total.toFixed(2)}
                     </Text>
                   </Group>
